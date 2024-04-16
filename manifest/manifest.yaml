@@ -1,0 +1,59 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: $name-pvc
+  labels:
+    app.kubernetes.io/name: $name-pvc
+    app.kubernetes.io/component: deployable-vm-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: $STORAGE_CLASS
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: $name
+spec:
+  serviceName: $name
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployable-vm
+  template:
+    metadata:
+      labels:
+        app: deployable-vm
+    spec:
+      serviceAccountName: kubectl-internal
+      containers:
+      - image: $imageDeployableVM
+        imagePullPolicy: Always
+        name: deployable-vm-image
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - sh
+                - -c
+                - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
+        volumeMounts:
+        - mountPath: /var/secrets/google/
+          name: gcp-key
+          readOnly: true
+        - name: deployable-pvc
+          mountPath: "/deployable_files"
+      volumes:
+      - name: gcp-key
+        secret:
+          secretName: integrator-volume-key
+      - name: deployable-pvc
+        persistentVolumeClaim:
+          claimName: $name-pvc        
+      imagePullSecrets:
+      - name: chata-secret

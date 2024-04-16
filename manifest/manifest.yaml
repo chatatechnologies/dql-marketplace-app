@@ -1,9 +1,9 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: $name-pvc
+  name: $INSTANCE_NAME-pvc
   labels:
-    app.kubernetes.io/name: $name-pvc
+    app.kubernetes.io/name: $INSTANCE_NAME-pvc
     app.kubernetes.io/component: deployable-vm-pvc
 spec:
   accessModes:
@@ -18,9 +18,9 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: $name
+  name: $INSTANCE_NAME
 spec:
-  serviceName: $name
+  serviceName: $INSTANCE_NAME
   replicas: 1
   selector:
     matchLabels:
@@ -30,9 +30,9 @@ spec:
       labels:
         app: deployable-vm
     spec:
-      serviceAccountName: kubectl-internal
+      serviceAccountName: $SERVICE_ACCOUNT
       containers:
-      - image: $imageDeployableVM
+      - image: $IMAGE_DEPLOYABLE_VM
         imagePullPolicy: Always
         name: deployable-vm-image
         lifecycle:
@@ -54,6 +54,6 @@ spec:
           secretName: integrator-volume-key
       - name: deployable-pvc
         persistentVolumeClaim:
-          claimName: $name-pvc        
+          claimName: $INSTANCE_NAME-pvc        
       imagePullSecrets:
       - name: chata-secret

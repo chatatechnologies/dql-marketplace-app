@@ -11,3 +11,6 @@ RUN cat /data/schema.yaml \
     | env -i "REGISTRY=$REGISTRY" "TAG=$TAG" envsubst \
     > /data/schema.yaml.new \
     && mv /data/schema.yaml.new /data/schema.yaml
+
+ENV WAIT_FOR_READY_TIMEOUT 2700
+ENV TESTER_TIMEOUT 2700

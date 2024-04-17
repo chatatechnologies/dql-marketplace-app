@@ -8,6 +8,11 @@ x-google-marketplace:
     releaseNote: >-
       A first initial release to test.
 
+  images: 
+    '':
+      properties:
+        dqlImage:
+          type: FULL
 
 properties:
   INSTANCE_NAME:
@@ -20,12 +25,6 @@ properties:
     x-google-marketplace:
       type: NAMESPACE
 
-  images:
-    dqlinstance:
-      properties:
-        IMAGE_DEPLOYABLE_VM:
-          type: FULL
-
   STORAGE_CLASS:
     type: string
     title: StorageClass
@@ -35,25 +34,33 @@ properties:
       storageClass:
         type: SSD
 
-  SERVICE_ACCOUNT:
-    title: Cluster Admin Service Account
-    description: >-
-      Name of a service account in the target namespace that
-      has cluster-admin permissions. This is needed deployable instance
-      to modify other resources on the cluster.
+  operatorServiceAccount:
     type: string
     x-google-marketplace:
       type: SERVICE_ACCOUNT
       serviceAccount:
+        description: >
+          Monitors cluster-wide app dependencies (such as x and y),
+          managing CoreOS application instances and their etcdclusters.
         roles:
-        - type: ClusterRole
+        - type: ClusterRole        # This is a cluster-wide ClusterRole
           rulesType: PREDEFINED
-          # TODO(barney-s): Reduce the permission set.
-          rulesFromRoleName: cluster-admin
+          rulesFromRoleName: view  # Use predefined role named "view"
+        - type: Role               # This is a namespaced Role
+          rulesType: CUSTOM        # We specify our own custom RBAC rules
+          rules:
+          - apiGroups: ['apps.kubernetes.io']
+            resources: ['applications']
+            verbs: ['*']
+        - type: ClusterRole
+          rulesType: CUSTOM
+          rules:
+          - apiGroups: ['etcd.database.coreos.com']
+            resources: ['etcdclusters']
+            verbs: ['*']
 
 required:
 - INSTANCE_NAME
 - NAMESPACE
-- IMAGE_DEPLOYABLE_VM
 - STORAGE_CLASS
-- SERVICE_ACCOUNT
+- operatorServiceAccount

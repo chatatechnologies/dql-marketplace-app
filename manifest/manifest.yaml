@@ -30,30 +30,23 @@ spec:
       labels:
         app: deployable-vm
     spec:
-      serviceAccountName: $SERVICE_ACCOUNT
+      serviceAccountName: $operatorServiceAccount
       containers:
-      - image: $IMAGE_DEPLOYABLE_VM
+      # - image: $dqlImage
+      - image: us-east1-docker.pkg.dev/dql-stag-public/dql-stag/mp-test:0.0.1
         imagePullPolicy: Always
         name: deployable-vm-image
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - sh
-                - -c
-                - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
+        # lifecycle:
+        #   postStart:
+        #     exec:
+        #       command:
+        #         - sh
+        #         - -c
+        #         - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
         volumeMounts:
-        - mountPath: /var/secrets/google/
-          name: gcp-key
-          readOnly: true
         - name: deployable-pvc
           mountPath: "/deployable_files"
       volumes:
-      - name: gcp-key
-        secret:
-          secretName: integrator-volume-key
       - name: deployable-pvc
         persistentVolumeClaim:
           claimName: $INSTANCE_NAME-pvc        
-      imagePullSecrets:
-      - name: chata-secret

@@ -109,7 +109,7 @@ Choose an instance name and
 for the app. In most cases, you can use the `default` namespace.
 
 ```shell
-export APP_INSTANCE_NAME=dql-marketplace
+export INSTANCE_NAME=dql-marketplace
 export NAMESPACE=default
 ```
 
@@ -126,6 +126,40 @@ a new namespace:
 
 ```shell
 kubectl create namespace "$NAMESPACE"
+```
+
+#### Create the secrets and configmaps
+
+Chata will provide you with a folder that has secert files and scripts to create the required secrets and configmaps. Follow the `Readme` provided with hem to set up the prerequisites.
+
+#### Configure the service account
+
+For the operator to be able to manipulate Kubernetes resources, there must be a
+service account in the target namespace with cluster-wide permissions to
+manipulate Kubernetes resources.
+
+To provision a service account and export it via an environment variable, run the
+following command:
+
+```shell
+export SERVICE_ACCOUNT="${INSTANCE_NAME}-sa"
+```
+
+To create service accounts, expand the manifest:
+
+```shell
+cat resources/service-account.yaml \
+  | envsubst '${INSTANCE_NAME} \
+              ${NAMESPACE} \
+              ${SERVICE_ACCOUNT}' \
+    > "${INSTANCE_NAME}_sa_manifest.yaml"
+```
+
+You can create the accounts on the cluster with `kubectl`:
+
+```shell
+kubectl apply -f "${INSTANCE_NAME}_sa_manifest.yaml" \
+    --namespace "${NAMESPACE}"
 ```
 
 By design, the removal of StatefulSets in Kubernetes does not remove

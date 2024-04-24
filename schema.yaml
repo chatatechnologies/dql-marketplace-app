@@ -34,7 +34,7 @@ properties:
       storageClass:
         type: SSD
 
-  operatorServiceAccount:
+  SERVICE_ACCOUNT:
     type: string
     x-google-marketplace:
       type: SERVICE_ACCOUNT
@@ -63,4 +63,4 @@ required:
 - INSTANCE_NAME
 - NAMESPACE
 - STORAGE_CLASS
-- operatorServiceAccount
+- SERVICE_ACCOUNT

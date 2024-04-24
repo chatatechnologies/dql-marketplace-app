@@ -11,8 +11,10 @@ x-google-marketplace:
   images: 
     '':
       properties:
-        dqlImage:
+        DEPLOYABLE_VM_IMAGE:
           type: FULL
+        IMAGE_TAG:
+          type: TAG
 
 properties:
   INSTANCE_NAME:

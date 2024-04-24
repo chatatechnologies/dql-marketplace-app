@@ -105,7 +105,7 @@ a new namespace:
 kubectl create namespace "$NAMESPACE"
 ```
 
-#### Create the secrets and configmaps
+#### Create namespace, secrets and configmap in your Kubernetes cluster
 
 Chata will provide you with a folder that has secert files and scripts to create the required secrets and configmaps. Follow the `Readme` provided with hem to set up the prerequisites.
 
@@ -162,6 +162,25 @@ kubectl apply -f "${INSTANCE_NAME}_sa_manifest.yaml" \
     --namespace "${NAMESPACE}"
 ```
 
+#### Expand the manifest template
+
+Use `envsubst` to expand the template. We recommend that you save the
+expanded manifest file for future updates to the app.
+
+```shell
+awk 'FNR==1 {print "---"}{print}' manifest/* \
+  | envsubst '$INSTANCE_NAME $NAMESPACE $DEPLOYABLE_VM_IMAGE $SERVICE_ACCOUNT $DEPLOYER_IMAGE' \
+  > "${INSTANCE_NAME}_manifest.yaml"
+```
+
+#### Apply the manifest to your Kubernetes cluster
+
+To apply the manifest to your Kubernetes cluster, use `kubectl`:
+
+```shell
+kubectl apply -f "${INSTANCE_NAME}_manifest.yaml" --namespace "${NAMESPACE}"
+```
+
 By design, the removal of StatefulSets in Kubernetes does not remove
 PersistentVolumeClaims that were attached to their Pods. This prevents your
 installations from accidentally deleting stateful data.
@@ -172,8 +191,18 @@ the following `kubectl` commands:
 ```shell
 kubectl delete persistentvolumeclaims \
   --namespace ${NAMESPACE} \
-  --selector app.kubernetes.io/name=${APP_INSTANCE_NAME}
+  --selector app.kubernetes.io/name=${INSTANCE_NAME}
 ```
+
+#### View your app in the Google Cloud Console
+
+To get the Cloud Console URL for your app, run the following command:
+
+```shell
+echo "https://console.cloud.google.com/kubernetes/application/${ZONE}/${CLUSTER}/${NAMESPACE}/${INSTANCE_NAME}"
+```
+
+To view your app, open the URL in your browser.
 
 ### Delete the GKE cluster
 

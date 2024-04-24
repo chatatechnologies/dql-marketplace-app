@@ -19,6 +19,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: deployable-vm
+  namespace: $NAMESPACE
 spec:
   serviceName: deployable-vm
   replicas: 1

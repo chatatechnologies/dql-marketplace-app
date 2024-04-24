@@ -94,7 +94,20 @@ community. The source code can be found on
 
 ### Install the Application
 
-#### Create the namespace and secrets required for the Application
+#### Create the namespace, configmap and secrets required for the Application
+
+#### Create namespace in your Kubernetes cluster
+
+If you use a different namespace than `default`, run the command below to create
+a new namespace:
+
+```shell
+kubectl create namespace "$NAMESPACE"
+```
+
+#### Create the secrets and configmaps
+
+Chata will provide you with a folder that has secert files and scripts to create the required secrets and configmaps. Follow the `Readme` provided with hem to set up the prerequisites.
 
 Navigate to the `dql-marketplace-app` directory:
 
@@ -110,7 +123,7 @@ for the app. In most cases, you can use the `default` namespace.
 
 ```shell
 export INSTANCE_NAME=dql-marketplace
-export NAMESPACE=default
+export NAMESPACE=$NAMESPACE
 ```
 
 Configure the container images:
@@ -119,22 +132,9 @@ Configure the container images:
 TAG=5.3
 ```
 
-#### Create namespace in your Kubernetes cluster
-
-If you use a different namespace than `default`, run the command below to create
-a new namespace:
-
-```shell
-kubectl create namespace "$NAMESPACE"
-```
-
-#### Create the secrets and configmaps
-
-Chata will provide you with a folder that has secert files and scripts to create the required secrets and configmaps. Follow the `Readme` provided with hem to set up the prerequisites.
-
 #### Configure the service account
 
-For the operator to be able to manipulate Kubernetes resources, there must be a
+For the deployable vm to be able to manipulate Kubernetes resources, there must be a
 service account in the target namespace with cluster-wide permissions to
 manipulate Kubernetes resources.
 

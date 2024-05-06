@@ -2,6 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: deployable-vm-pvc
+  namespace: $NAMESPACE
   labels:
     app.kubernetes.io/name: deployable-vm-pvc
     app.kubernetes.io/component: deployable-vm-pvc
@@ -37,6 +38,9 @@ spec:
       - image: us-east1-docker.pkg.dev/dql-stag-public/dql-stag/dql-mp-stag:0.0.1
         imagePullPolicy: Always
         name: deployable-vm-image
+        envFrom:
+          - configMapRef:
+              name: configmap-deployer
         lifecycle:
           postStart:
             exec:
@@ -48,15 +52,24 @@ spec:
         - mountPath: /var/secrets/google/
           name: gcp-key
           readOnly: true
+        - mountPath: /var/secrets/pem/
+          name: deployable-integrator-pem
+          readOnly: true
+        - mountPath: /var/secrets/user/
+          name: user-auth-volume
+          readOnly: true
         - name: deployable-pvc
           mountPath: "/deployable_files"
       volumes:
       - name: gcp-key
         secret:
           secretName: integrator-volume-key
+      - name: deployable-integrator-pem  
+        secret:
+          secretName: deployable-integrator-pem
+      - name: user-auth-volume  
+        secret:
+          secretName: user-auth-volume
       - name: deployable-pvc
         persistentVolumeClaim:
-          claimName: deployable-vm-pvc
-      - name: deployer-configmap
-        configMap:
-          name: configmap-deployer             
+          claimName: deployable-vm-pvc         

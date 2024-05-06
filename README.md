@@ -2,7 +2,7 @@
 
 # Overview
 
-Deployable AutoQL solution by Chata is an open source platform to accelerate data-driven decision-making and eliminate repetitive reporting tasks. With AutoQL empower your non-technical users to access real-time data with ease, increase productivity and reduce the demand on the technical team – all while ensuring the highest data security.
+Deployable AutoQL solution by Chata is a platform to accelerate data-driven decision-making and eliminate repetitive reporting tasks. With AutoQL empower your non-technical users to access real-time data with ease, increase productivity and reduce the demand on the technical team – all while ensuring the highest data security.
 
 ## About Google Click to Deploy
 
@@ -181,6 +181,16 @@ To apply the manifest to your Kubernetes cluster, use `kubectl`:
 kubectl apply -f "${INSTANCE_NAME}_manifest.yaml" --namespace "${NAMESPACE}"
 ```
 
+#### View your app in the Google Cloud Console
+
+To get the Cloud Console URL for your app, run the following command:
+
+```shell
+echo "https://console.cloud.google.com/kubernetes/application/${ZONE}/${CLUSTER}/${NAMESPACE}/${INSTANCE_NAME}"
+```
+
+To view your app, open the URL in your browser.
+
 By design, the removal of StatefulSets in Kubernetes does not remove
 PersistentVolumeClaims that were attached to their Pods. This prevents your
 installations from accidentally deleting stateful data.
@@ -193,16 +203,6 @@ kubectl delete persistentvolumeclaims \
   --namespace ${NAMESPACE} \
   --selector app.kubernetes.io/name=${INSTANCE_NAME}
 ```
-
-#### View your app in the Google Cloud Console
-
-To get the Cloud Console URL for your app, run the following command:
-
-```shell
-echo "https://console.cloud.google.com/kubernetes/application/${ZONE}/${CLUSTER}/${NAMESPACE}/${INSTANCE_NAME}"
-```
-
-To view your app, open the URL in your browser.
 
 ### Delete the GKE cluster
 

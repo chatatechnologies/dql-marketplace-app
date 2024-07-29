@@ -3,7 +3,7 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '0.1.1'
+  publishedVersion: '1.0.0'
   publishedVersionMetadata:
     releaseNote: >-
       A first initial release to test.
@@ -42,24 +42,112 @@ properties:
       type: SERVICE_ACCOUNT
       serviceAccount:
         description: >
-          Monitors cluster-wide app dependencies (such as x and y),
-          managing CoreOS application instances and their etcdclusters.
+          Name of a service account in the target namespace that
+          has cluster-admin permissions. This is needed for the operator
+          to manage resources.
         roles:
-        - type: ClusterRole        # This is a cluster-wide ClusterRole
-          rulesType: PREDEFINED
-          rulesFromRoleName: view  # Use predefined role named "view"
-        - type: Role               # This is a namespaced Role
-          rulesType: CUSTOM        # We specify our own custom RBAC rules
-          rules:
-          - apiGroups: ['apps.kubernetes.io']
-            resources: ['applications']
-            verbs: ['*']
         - type: ClusterRole
           rulesType: CUSTOM
           rules:
-          - apiGroups: ['etcd.database.coreos.com']
-            resources: ['etcdclusters']
-            verbs: ['*']
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs:
+                - '*'
+            - apiGroups:
+              - ""
+              resources:
+                - pods
+                - services
+                - endpoints
+                - persistentvolumeclaims
+                - events
+                - configmaps
+                - secrets
+                - serviceaccounts
+                - namespaces
+              verbs:
+                - '*'
+            - apiGroups:
+              - apps
+              resources:
+              - deployments
+              - daemonsets
+              - replicasets
+              - statefulsets
+              verbs:
+              - '*'
+            - apiGroups:
+              - extensions
+              resources:
+              - replicasets
+              - deployments
+              - daemonsets
+              - statefulsets
+              - ingresses
+              verbs:
+                - '*'
+            - apiGroups:
+              - batch
+              resources:
+              - jobs
+              - cronjobs
+              verbs:
+              - '*'
+            - apiGroups:
+              - rbac.authorization.k8s.io
+              resources:
+              - clusterrolebindings
+              verbs:
+              - '*'
+            - apiGroups:
+              - rbac.authorization.k8s.io
+              resources:
+              - clusterroles
+              verbs:
+              - '*'
+            - apiGroups:
+              - rbac.authorization.k8s.io
+              resources:
+              - rolebindings
+              verbs:
+              - '*'
+            - apiGroups:
+              - admissionregistration.k8s.io
+              resources:
+              - validatingwebhookconfigurations
+              verbs:
+              - '*'
+            - apiGroups:
+              - admissionregistration.k8s.io
+              resources:
+              - mutatingwebhookconfigurations
+              verbs:
+              - '*'
+            - apiGroups:
+              - apiregistration.k8s.io
+              resources:
+              - apiservices
+              verbs:
+              - '*'
+            - apiGroups:
+              - certificates.k8s.io
+              resources:
+              - certificatesigningrequests
+              - certificatesigningrequests/approval
+              verbs:
+              - create
+              - delete
+              - get
+              - list
+              - watch
+              - update
+            - apiGroups:
+              - authentication.k8s.io
+              resources:
+              - tokenreviews
+              - subjectaccessreviews
+              verbs:
+              - create
 
 required:
 - INSTANCE_NAME

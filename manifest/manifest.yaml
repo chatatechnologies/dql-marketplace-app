@@ -34,8 +34,7 @@ spec:
     spec:
       serviceAccountName: $SERVICE_ACCOUNT
       containers:
-      # - image: $DEPLOYABLE_VM_IMAGE
-      - image: us-east1-docker.pkg.dev/dql-stag-public/dql-stag/dql-mp-stag:0.0.1
+      - image: $DEPLOYABLE_VM_IMAGE
         imagePullPolicy: Always
         name: deployable-vm-image
         envFrom:

@@ -10,7 +10,7 @@ metadata:
 spec:
   descriptor:
     type: Chata DQL instance
-    version: '0.1.1'
+    version: '1.0.0'
   selector:
     matchLabels:
       app.kubernetes.io/name: "$INSTANCE_NAME"

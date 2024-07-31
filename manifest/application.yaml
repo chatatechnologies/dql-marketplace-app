@@ -22,3 +22,7 @@ spec:
     kind: PersistentVolumeClaim
   - group: v1
     kind: ServiceAccount
+  - group: v1
+    kind: Secret
+  - group: v1
+    kind: Configmap

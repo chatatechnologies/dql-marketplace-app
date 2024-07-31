@@ -149,8 +149,152 @@ properties:
               verbs:
               - create
 
+  PEM_SECRET:
+    type: string
+    default: test
+    description: base64 encoded value of pem file for portal authentication
+    x-google-marketplace:
+      type: STRING
+
+  # JSON_SECRET:
+  #   type: string
+  #   default: test
+  #   description: base64 encode value of service account json file for portal authentication
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # JWT_SECRET:
+  #   type: string
+  #   default: test
+  #   description: base64 encode value of JWT credentials json file for portal authentication
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # BACKEND_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   description: Subdomain URL for the API calls
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # PORTAL_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   description: Subdomain URL for the portal login
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # WEBAPP_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   description: Subdomain URL for the webapp login
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # EXCEL_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   description: Subdomain URL for the excel application login
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # ADMIN_EMAIL:
+  #   type: string
+  #   default: test
+  #   description: Email of the Admin user to login to the portal
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # ADMIN_FIRST_NAME:
+  #   type: string
+  #   default: test
+  #   description: First name of the Admin user
+  #   x-google-marketplace:
+  #     type: STRING  
+
+  # ADMIN_LAST_NAME:
+  #   type: string
+  #   default: test
+  #   description: Last name of the Admin user
+  #   x-google-marketplace:
+  #     type: STRING    
+
+  # INTEGRATOR_BUCKET:
+  #   type: string
+  #   default: test
+  #   description: Chata Google bucket where integrator model files are generated
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # INTEGRATOR_ID:
+  #   type: integer
+  #   default: 3010
+  #   description: Unique ID of the Integrator. Value is an integer
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # RELEASE_VERSION:
+  #   type: string
+  #   default: test
+  #   description: Release version of the Integrator related model
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # INDEX_BUCKET:
+  #   type: string
+  #   default: test
+  #   description: Chata Google bucket where integrator model buckets data is stored and used for portal installs
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # SPOT_INSTANCES_ENABLED:
+  #   type: boolean
+  #   default: false
+  #   description: Install the deployments and statefulsets on SPOT/Preemptible nodes. 
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # DESTINATION_REGISTRY:
+  #   type: string
+  #   default: test
+  #   description: Marketplace registry URL where services images are kept
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # HELM_REPO_URL:
+  #   type: string
+  #   default: test
+  #   description: Chata Google bucket where helm charts for the services are placed
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # POST_DEPLOYMENTS_URL:
+  #   type: string
+  #   default: test
+  #   description: Chata Google bucket post install scripts for service configurations are placed
+  #   x-google-marketplace:
+  #     type: STRING
+
 required:
 - INSTANCE_NAME
 - NAMESPACE
 - STORAGE_CLASS
 - SERVICE_ACCOUNT
+- PEM_SECRET
+# - JSON_SECRET
+# - JWT_SECRET
+# - BACKEND_SUBDOMAIN
+# - PORTAL_SUBDOMAIN
+# - WEBAPP_SUBDOMAIN
+# - EXCEL_SUBDOMAIN
+# - INTEGRATOR_BUCKET
+# - INTEGRATOR_ID
+# - ADMIN_EMAIL
+# - ADMIN_FIRST_NAME
+# - ADMIN_LAST_NAME
+# - RELEASE_VERSION
+# - INDEX_BUCKET
+# - SPOT_INSTANCES_ENABLED
+# - DESTINATION_REGISTRY
+# - HELM_REPO_URL
+# - POST_DEPLOYMENTS_URL

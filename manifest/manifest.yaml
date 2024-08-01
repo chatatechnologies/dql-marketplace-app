@@ -1,11 +1,22 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    control-plane: controller-manager
+    app.kubernetes.io/name: "$INSTANCE_NAME"
+  name: $NAMESPACE
+
+---
+
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: deployable-vm-pvc
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: deployable-vm-pvc
-    app.kubernetes.io/component: deployable-vm-pvc
+    app.kubernetes.io/name: $INSTANCE_NAME-pvc
+    app.kubernetes.io/component: $INSTANCE_NAME-pvc
 spec:
   accessModes:
     - ReadWriteOnce
@@ -14,61 +25,62 @@ spec:
       storage: 50Gi
   storageClassName: $STORAGE_CLASS
 
----
+# ---
 
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: deployable-vm
-  namespace: $NAMESPACE
-spec:
-  serviceName: deployable-vm
-  replicas: 1
-  selector:
-    matchLabels:
-      app: deployable-vm
-  template:
-    metadata:
-      labels:
-        app: deployable-vm
-    spec:
-      serviceAccountName: $SERVICE_ACCOUNT
-      containers:
-      - image: $DEPLOYABLE_VM_IMAGE
-        imagePullPolicy: Always
-        name: deployable-vm-image
-        envFrom:
-          - configMapRef:
-              name: configmap-deployer
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - sh
-                - -c
-                - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
-        volumeMounts:
-        - mountPath: /var/secrets/google/
-          name: gcp-key
-          readOnly: true
-        - mountPath: /var/secrets/pem/
-          name: deployable-integrator-pem
-          readOnly: true
-        - mountPath: /var/secrets/user/
-          name: user-auth-volume
-          readOnly: true
-        - name: deployable-pvc
-          mountPath: "/deployable_files"
-      volumes:
-      - name: gcp-key
-        secret:
-          secretName: integrator-volume-key
-      - name: deployable-integrator-pem  
-        secret:
-          secretName: deployable-integrator-pem
-      - name: user-auth-volume  
-        secret:
-          secretName: user-auth-volume
-      - name: deployable-pvc
-        persistentVolumeClaim:
-          claimName: deployable-vm-pvc         
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: deployable-vm
+#   namespace: $NAMESPACE
+# spec:
+#   serviceName: deployable-vm
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: deployable-vm
+#   template:
+#     metadata:
+#       labels:
+#         app: deployable-vm
+#         app.kubernetes.io/name: "$INSTANCE_NAME"
+#     spec:
+#       serviceAccountName: $SERVICE_ACCOUNT
+#       containers:
+#       - image: $DEPLOYABLE_VM_IMAGE
+#         imagePullPolicy: Always
+#         name: deployable-vm-image
+#         envFrom:
+#           - configMapRef:
+#               name: configmap-deployer
+#         lifecycle:
+#           postStart:
+#             exec:
+#               command:
+#                 - sh
+#                 - -c
+#                 - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
+#         volumeMounts:
+#         - mountPath: /var/secrets/google/
+#           name: gcp-key
+#           readOnly: true
+#         - mountPath: /var/secrets/pem/
+#           name: deployable-integrator-pem
+#           readOnly: true
+#         - mountPath: /var/secrets/user/
+#           name: user-auth-volume
+#           readOnly: true
+#         - name: deployable-pvc
+#           mountPath: "/deployable_files"
+#       volumes:
+#       - name: gcp-key
+#         secret:
+#           secretName: integrator-volume-key
+#       - name: deployable-integrator-pem  
+#         secret:
+#           secretName: deployable-integrator-pem
+#       - name: user-auth-volume  
+#         secret:
+#           secretName: user-auth-volume
+#       - name: deployable-pvc
+#         persistentVolumeClaim:
+#           claimName: deployable-vm-pvc         

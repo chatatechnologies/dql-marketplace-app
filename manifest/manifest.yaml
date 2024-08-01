@@ -79,6 +79,20 @@ data:
 #   jwt-credentials-prod.json: "$JWT_SECRET"
 
 # ---
+## Docker secret
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: chata-secret
+#   namespace: $NAMESPACE
+#   labels:
+#     app.kubernetes.io/name: $INSTANCE_NAME-imagepullsecret
+#     app.kubernetes.io/component: $INSTANCE_NAME-imagepullsecret
+# type: kubernetes.io/dockerconfigjson
+# data:
+#   .dockerconfigjson: "$DOCKER_SECRET"
+
+---
 
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -154,4 +168,4 @@ spec:
       #     secretName: user-auth-volume
       - name: deployable-pvc
         persistentVolumeClaim:
-          claimName: deployable-vm-pvc         
+          claimName: deployable-vm-pvc     

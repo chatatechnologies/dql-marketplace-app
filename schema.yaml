@@ -170,6 +170,13 @@ properties:
   #   x-google-marketplace:
   #     type: STRING
 
+  # DOCKER_SECRET:
+  #   type: string
+  #   default: test
+  #   description: base64 encode value of service account json file for imagepullsecret from private registry
+  #   x-google-marketplace:
+  #     type: STRING
+
   # BACKEND_SUBDOMAIN:
   #   type: string
   #   default: test
@@ -283,6 +290,7 @@ required:
 - PEM_SECRET
 # - JSON_SECRET
 # - JWT_SECRET
+# - DOCKER_SECRET
 # - BACKEND_SUBDOMAIN
 # - PORTAL_SUBDOMAIN
 # - WEBAPP_SUBDOMAIN

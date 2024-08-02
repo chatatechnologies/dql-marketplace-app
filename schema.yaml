@@ -29,8 +29,8 @@ properties:
 
   STORAGE_CLASS:
     type: string
-    title: StorageClass
     description: You can choose an existing StorageClass or create a new one.
+    title: You can choose an existing StorageClass or create a new one.
     x-google-marketplace:
       type: STORAGE_CLASS
       storageClass:
@@ -151,136 +151,118 @@ properties:
 
   PEM_SECRET:
     type: string
-    default: test
-    description: base64 encoded value of pem file for portal authentication
+    # default: test
+    title: base64 encoded value of pem file for portal authentication
     x-google-marketplace:
       type: STRING
 
   # JSON_SECRET:
   #   type: string
-  #   default: test
-  #   description: base64 encode value of service account json file for portal authentication
+  #   title: base64 encode value of service account json file for portal authentication
   #   x-google-marketplace:
   #     type: STRING
 
   # JWT_SECRET:
   #   type: string
-  #   default: test
-  #   description: base64 encode value of JWT credentials json file for portal authentication
+  #   title: base64 encode value of JWT credentials json file for portal authentication
   #   x-google-marketplace:
   #     type: STRING
 
   # DOCKER_SECRET:
   #   type: string
-  #   default: test
-  #   description: base64 encode value of service account json file for imagepullsecret from private registry
+  #   title: base64 encode value of service account json file for imagepullsecret from private registry
   #   x-google-marketplace:
   #     type: STRING
 
   # BACKEND_SUBDOMAIN:
   #   type: string
-  #   default: test
-  #   description: Subdomain URL for the API calls
+  #   title: Subdomain URL for the API calls
   #   x-google-marketplace:
   #     type: STRING
 
   # PORTAL_SUBDOMAIN:
   #   type: string
-  #   default: test
-  #   description: Subdomain URL for the portal login
+  #   title: Subdomain URL for the portal login
   #   x-google-marketplace:
   #     type: STRING
 
   # WEBAPP_SUBDOMAIN:
   #   type: string
-  #   default: test
-  #   description: Subdomain URL for the webapp login
+  #   title: Subdomain URL for the webapp login
   #   x-google-marketplace:
   #     type: STRING
 
   # EXCEL_SUBDOMAIN:
   #   type: string
-  #   default: test
-  #   description: Subdomain URL for the excel application login
+  #   title: Subdomain URL for the excel application login
   #   x-google-marketplace:
   #     type: STRING
 
-  # ADMIN_EMAIL:
-  #   type: string
-  #   default: test
-  #   description: Email of the Admin user to login to the portal
-  #   x-google-marketplace:
-  #     type: STRING
+  ADMIN_EMAIL:
+    type: string
+    title: Email of the Admin user to login to the portal
+    x-google-marketplace:
+      type: STRING
 
-  # ADMIN_FIRST_NAME:
-  #   type: string
-  #   default: test
-  #   description: First name of the Admin user
-  #   x-google-marketplace:
-  #     type: STRING  
+  ADMIN_FIRST_NAME:
+    type: string
+    title: First name of the Admin user
+    x-google-marketplace:
+      type: STRING  
 
-  # ADMIN_LAST_NAME:
-  #   type: string
-  #   default: test
-  #   description: Last name of the Admin user
-  #   x-google-marketplace:
-  #     type: STRING    
+  ADMIN_LAST_NAME:
+    type: string
+    title: Last name of the Admin user
+    x-google-marketplace:
+      type: STRING    
 
   # INTEGRATOR_BUCKET:
   #   type: string
-  #   default: test
-  #   description: Chata Google bucket where integrator model files are generated
+  #   title: Chata Google bucket where integrator model files are generated
   #   x-google-marketplace:
   #     type: STRING
 
   # INTEGRATOR_ID:
   #   type: integer
-  #   default: 3010
-  #   description: Unique ID of the Integrator. Value is an integer
-  #   x-google-marketplace:
-  #     type: STRING
+  #   title: Unique ID of the Integrator. Value is an integer
 
-  # RELEASE_VERSION:
-  #   type: string
-  #   default: test
-  #   description: Release version of the Integrator related model
-  #   x-google-marketplace:
-  #     type: STRING
+  RELEASE_VERSION:
+    type: string
+    default: ''
+    title: Release version of the Integrator related model
+    x-google-marketplace:
+      type: STRING
 
   # INDEX_BUCKET:
   #   type: string
-  #   default: test
-  #   description: Chata Google bucket where integrator model buckets data is stored and used for portal installs
+  #   title: Chata Google bucket where integrator model buckets data is stored and used for portal installs
   #   x-google-marketplace:
   #     type: STRING
 
-  # SPOT_INSTANCES_ENABLED:
-  #   type: boolean
-  #   default: false
-  #   description: Install the deployments and statefulsets on SPOT/Preemptible nodes. 
-  #   x-google-marketplace:
-  #     type: STRING
+  SPOT_INSTANCES_ENABLED:
+    type: string
+    default: ''
+    title: Install the deployments and statefulsets on SPOT/Preemptible nodes.
+    x-google-marketplace:
+      type: STRING
 
   # DESTINATION_REGISTRY:
   #   type: string
-  #   default: test
-  #   description: Marketplace registry URL where services images are kept
+  #   title: Marketplace registry URL where services images are kept
   #   x-google-marketplace:
   #     type: STRING
 
-  # HELM_REPO_URL:
-  #   type: string
-  #   default: test
-  #   description: Chata Google bucket where helm charts for the services are placed
-  #   x-google-marketplace:
-  #     type: STRING
+  HELM_REPO_URL:
+    type: string
+    title: Chata Google bucket where helm charts for the services are placed
+    x-google-marketplace:
+      type: STRING
 
-  # POST_DEPLOYMENTS_URL:
-  #   type: string
-  #   default: test
-  #   description: Chata Google bucket post install scripts for service configurations are placed
-  #   x-google-marketplace:
-  #     type: STRING
+  POST_DEPLOYMENTS_URL:
+    type: string
+    title: Chata Google bucket post install scripts for service configurations are placed
+    x-google-marketplace:
+      type: STRING
 
 required:
 - INSTANCE_NAME
@@ -297,12 +279,12 @@ required:
 # - EXCEL_SUBDOMAIN
 # - INTEGRATOR_BUCKET
 # - INTEGRATOR_ID
-# - ADMIN_EMAIL
-# - ADMIN_FIRST_NAME
-# - ADMIN_LAST_NAME
-# - RELEASE_VERSION
+- ADMIN_EMAIL
+- ADMIN_FIRST_NAME
+- ADMIN_LAST_NAME
+- RELEASE_VERSION
 # - INDEX_BUCKET
-# - SPOT_INSTANCES_ENABLED
+- SPOT_INSTANCES_ENABLED
 # - DESTINATION_REGISTRY
-# - HELM_REPO_URL
-# - POST_DEPLOYMENTS_URL
+- HELM_REPO_URL
+- POST_DEPLOYMENTS_URL

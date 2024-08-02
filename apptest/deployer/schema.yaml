@@ -1,0 +1,103 @@
+properties:
+  testerImage:
+    type: string
+    default: $REGISTRY/tester:$TAG
+    x-google-property:
+      type: IMAGE
+  PEM_SECRET:
+    type: string
+    default: test
+    x-google-marketplace:
+      type: STRING
+
+  # JSON_SECRET:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # JWT_SECRET:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # DOCKER_SECRET:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # BACKEND_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # PORTAL_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # WEBAPP_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # EXCEL_SUBDOMAIN:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  ADMIN_EMAIL:
+    type: string
+    default: 'developer@chata.ai'
+    x-google-marketplace:
+      type: STRING
+
+  ADMIN_FIRST_NAME:
+    type: string
+    default: developer
+    x-google-marketplace:
+      type: STRING
+  
+  ADMIN_LAST_NAME:
+    type: string
+    default: developer
+    x-google-marketplace:
+      type: STRING
+    
+  # INTEGRATOR_BUCKET:
+  #   type: string
+  #   default: test
+
+  # INTEGRATOR_ID:
+  #   type: integer
+  #   default: test
+
+  # INDEX_BUCKET:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # DESTINATION_REGISTRY:
+  #   type: string
+  #   default: test
+  #   x-google-marketplace:
+  #     type: STRING
+
+  HELM_REPO_URL:
+    type: string
+    default: 'gs://chata-deployable-helm-repo'
+    x-google-marketplace:
+      type: STRING
+
+  POST_DEPLOYMENTS_URL:
+    type: string
+    default: 'gs://chata-deployable-inference'
+    x-google-marketplace:
+      type: STRING

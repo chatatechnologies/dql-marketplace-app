@@ -19,20 +19,20 @@ metadata:
 data:
   dql_namespace: "${NAMESPACE}"
   emissary_namespace: "${NAMESPACE}"
-  # portal_subdomain: "${PORTAL_SUBDOMAIN}"
-  # backend_subdomain: "${BACKEND_SUBDOMAIN}"
-  # webapp_subdomain: "${WEBAPP_SUBDOMAIN}"
-  # excel_subdomain: "${EXCEL_SUBDOMAIN}"
+  portal_subdomain: "${PORTAL_SUBDOMAIN}"
+  backend_subdomain: "${BACKEND_SUBDOMAIN}"
+  webapp_subdomain: "${WEBAPP_SUBDOMAIN}"
+  excel_subdomain: "${EXCEL_SUBDOMAIN}"
   owner_email: "${ADMIN_EMAIL}"
   owner_first_name: "${ADMIN_FIRST_NAME}"
   owner_last_name: "${ADMIN_LAST_NAME}"
   release_version: "${RELEASE_VERSION}"
-  # index_bucket: "${INDEX_BUCKET}"
-  # integrator_bucket: "${INTEGRATOR_BUCKET}"
-  # integrator_id: "${INTEGRATOR_ID}"
+  index_bucket: "${INDEX_BUCKET}"
+  integrator_bucket: "${INTEGRATOR_BUCKET}"
+  integrator_id: "${INTEGRATOR_ID}"
   cloud: "gcp"
   spot_enabled: "${SPOT_INSTANCES_ENABLED}" # Set to true or false
-  # destination_registry: "${DESTINATION_REGISTRY}"
+  destination_registry: "${DESTINATION_REGISTRY}"
   helm_repo_url: "${HELM_REPO_URL}"
   post_deployment_files_url: "${POST_DEPLOYMENTS_URL}"
 
@@ -52,45 +52,45 @@ data:
 
 ---
 
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: integrator-volume-key
-#   namespace: $NAMESPACE
-#   labels:
-#     app.kubernetes.io/name: $INSTANCE_NAME-volume
-#     app.kubernetes.io/component: $INSTANCE_NAME-volume
-# type: Opaque
-# data:
-#   chata-secret.json: "$JSON_SECRET"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: integrator-volume-key
+  namespace: $NAMESPACE
+  labels:
+    app.kubernetes.io/name: $INSTANCE_NAME-volume
+    app.kubernetes.io/component: $INSTANCE_NAME-volume
+type: Opaque
+data:
+  chata-secret.json: "$JSON_SECRET"
 
-# ---
+---
 
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: user-auth-volume
-#   namespace: $NAMESPACE
-#   labels:
-#     app.kubernetes.io/name: $INSTANCE_NAME-auth
-#     app.kubernetes.io/component: $INSTANCE_NAME-auth
-# type: Opaque
-# data:
-#   jwt-credentials-prod.json: "$JWT_SECRET"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-auth-volume
+  namespace: $NAMESPACE
+  labels:
+    app.kubernetes.io/name: $INSTANCE_NAME-auth
+    app.kubernetes.io/component: $INSTANCE_NAME-auth
+type: Opaque
+data:
+  jwt-credentials-prod.json: "$JWT_SECRET"
 
-# ---
-## Docker secret
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: chata-secret
-#   namespace: $NAMESPACE
-#   labels:
-#     app.kubernetes.io/name: $INSTANCE_NAME-imagepullsecret
-#     app.kubernetes.io/component: $INSTANCE_NAME-imagepullsecret
-# type: kubernetes.io/dockerconfigjson
-# data:
-#   .dockerconfigjson: "$DOCKER_SECRET"
+---
+# Docker secret (To be removed later)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: chata-secret
+  namespace: $NAMESPACE
+  labels:
+    app.kubernetes.io/name: $INSTANCE_NAME-imagepullsecret
+    app.kubernetes.io/component: $INSTANCE_NAME-imagepullsecret
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: "$DOCKER_SECRET"
 
 ---
 
@@ -112,60 +112,67 @@ spec:
 
 ---
 
-# apiVersion: apps/v1
-# kind: StatefulSet
-# metadata:
-#   name: deployable-vm
-#   namespace: $NAMESPACE
-# spec:
-#   serviceName: deployable-vm
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: deployable-vm
-#   template:
-#     metadata:
-#       labels:
-#         app: deployable-vm
-#         app.kubernetes.io/name: "$INSTANCE_NAME"
-#     spec:
-#       serviceAccountName: $SERVICE_ACCOUNT
-#       containers:
-#       - image: $DEPLOYABLE_VM_IMAGE
-#         imagePullPolicy: Always
-#         name: deployable-vm-image
-#         envFrom:
-#           - configMapRef:
-#               name: configmap-deployer
-#         lifecycle:
-#           postStart:
-#             exec:
-#               command:
-#                 - sh
-#                 - -c
-#                 - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
-#         volumeMounts:
-#         # - mountPath: /var/secrets/google/
-#         #   name: gcp-key
-#         #   readOnly: true
-#         - mountPath: /var/secrets/pem/
-#           name: deployable-integrator-pem
-#           readOnly: true
-#         # - mountPath: /var/secrets/user/
-#         #   name: user-auth-volume
-#         #   readOnly: true
-#         - name: deployable-pvc
-#           mountPath: "/deployable_files"
-#       volumes:
-#       # - name: gcp-key
-#       #   secret:
-#       #     secretName: integrator-volume-key
-#       - name: deployable-integrator-pem  
-#         secret:
-#           secretName: deployable-integrator-pem
-#       # - name: user-auth-volume  
-#       #   secret:
-#       #     secretName: user-auth-volume
-#       - name: deployable-pvc
-#         persistentVolumeClaim:
-#           claimName: deployable-vm-pvc     
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: deployable-vm
+  namespace: $NAMESPACE
+spec:
+  serviceName: deployable-vm
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployable-vm
+  template:
+    metadata:
+      labels:
+        app: deployable-vm
+        app.kubernetes.io/name: "$INSTANCE_NAME"
+    spec:
+      serviceAccountName: $SERVICE_ACCOUNT
+      containers:
+      - image: $DEPLOYABLE_VM_IMAGE
+        imagePullPolicy: Always
+        name: deployable-vm-image
+        envFrom:
+          - configMapRef:
+              name: configmap-deployer
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - sh
+                - -c
+                - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
+        volumeMounts:
+        - mountPath: /var/secrets/google/
+          name: gcp-key
+          readOnly: true
+        - mountPath: /var/secrets/pem/
+          name: deployable-integrator-pem
+          readOnly: true
+        - mountPath: /var/secrets/user/
+          name: user-auth-volume
+          readOnly: true
+        # - mountPath: /var/secrets/test/
+        #   name: test-volume
+        #   readOnly: true
+        - name: deployable-pvc
+          mountPath: "/deployable_files"
+      volumes:
+      - name: gcp-key
+        secret:
+          secretName: integrator-volume-key
+      - name: deployable-integrator-pem  
+        secret:
+          secretName: deployable-integrator-pem
+      - name: user-auth-volume  
+        secret:
+          secretName: user-auth-volume
+      # - name: test-volume  
+      #   secret:
+      #     secretName: test-volume
+      - name: deployable-pvc
+        persistentVolumeClaim:
+          claimName: deployable-vm-pvc
+

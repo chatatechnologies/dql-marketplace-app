@@ -10,47 +10,47 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # JSON_SECRET:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  JSON_SECRET:
+    type: string
+    default: test
+    x-google-marketplace:
+      type: STRING
 
-  # JWT_SECRET:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  JWT_SECRET:
+    type: string
+    default: test
+    x-google-marketplace:
+      type: STRING
 
-  # DOCKER_SECRET:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  DOCKER_SECRET:
+    type: string
+    default: test
+    x-google-marketplace:
+      type: STRING
 
-  # BACKEND_SUBDOMAIN:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  BACKEND_SUBDOMAIN:
+    type: string
+    default: 'api-marketplace.chata.io'
+    x-google-marketplace:
+      type: STRING
 
-  # PORTAL_SUBDOMAIN:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  PORTAL_SUBDOMAIN:
+    type: string
+    default: 'portal-marketplace.chata.io'
+    x-google-marketplace:
+      type: STRING
 
-  # WEBAPP_SUBDOMAIN:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  WEBAPP_SUBDOMAIN:
+    type: string
+    default: 'webapp-marketplace.chata.io'
+    x-google-marketplace:
+      type: STRING
 
-  # EXCEL_SUBDOMAIN:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  EXCEL_SUBDOMAIN:
+    type: string
+    default: 'excel-marketplace.chata.io'
+    x-google-marketplace:
+      type: STRING
 
   ADMIN_EMAIL:
     type: string
@@ -63,32 +63,34 @@ properties:
     default: developer
     x-google-marketplace:
       type: STRING
-  
+
   ADMIN_LAST_NAME:
     type: string
     default: developer
     x-google-marketplace:
       type: STRING
-    
-  # INTEGRATOR_BUCKET:
-  #   type: string
-  #   default: test
 
-  # INTEGRATOR_ID:
-  #   type: integer
-  #   default: test
+  INTEGRATOR_BUCKET:
+    type: string
+    default: 'gs://atctest_chata-engineering_63e14148a85989076c201e44'
+    x-google-marketplace:
+      type: STRING
 
-  # INDEX_BUCKET:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  INTEGRATOR_ID:
+    type: integer
+    default: 3010
 
-  # DESTINATION_REGISTRY:
-  #   type: string
-  #   default: test
-  #   x-google-marketplace:
-  #     type: STRING
+  INDEX_BUCKET:
+    type: string
+    default: 'gs://chata-dql-index-3010'
+    x-google-marketplace:
+      type: STRING
+
+  DESTINATION_REGISTRY:
+    type: string
+    default: 'us.gcr.io/portable-deploy'
+    x-google-marketplace:
+      type: STRING
 
   HELM_REPO_URL:
     type: string

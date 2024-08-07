@@ -148,55 +148,60 @@ properties:
               - subjectaccessreviews
               verbs:
               - create
+            - apiGroups:
+              - policy
+              resources:
+              - poddisruptionbudgets
+              verbs:
+              - '*'
 
   PEM_SECRET:
     type: string
-    # default: test
     title: base64 encoded value of pem file for portal authentication
     x-google-marketplace:
       type: STRING
 
-  # JSON_SECRET:
-  #   type: string
-  #   title: base64 encode value of service account json file for portal authentication
-  #   x-google-marketplace:
-  #     type: STRING
+  JSON_SECRET:
+    type: string
+    title: base64 encode value of service account json file for portal authentication
+    x-google-marketplace:
+      type: STRING
 
-  # JWT_SECRET:
-  #   type: string
-  #   title: base64 encode value of JWT credentials json file for portal authentication
-  #   x-google-marketplace:
-  #     type: STRING
+  JWT_SECRET:
+    type: string
+    title: base64 encode value of JWT credentials json file for portal authentication
+    x-google-marketplace:
+      type: STRING
 
-  # DOCKER_SECRET:
-  #   type: string
-  #   title: base64 encode value of service account json file for imagepullsecret from private registry
-  #   x-google-marketplace:
-  #     type: STRING
+  DOCKER_SECRET: # (To be removed later)
+    type: string
+    title: base64 encode value of service account json file for imagepullsecret from private registry
+    x-google-marketplace:
+      type: STRING
 
-  # BACKEND_SUBDOMAIN:
-  #   type: string
-  #   title: Subdomain URL for the API calls
-  #   x-google-marketplace:
-  #     type: STRING
+  BACKEND_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the API calls
+    x-google-marketplace:
+      type: STRING
 
-  # PORTAL_SUBDOMAIN:
-  #   type: string
-  #   title: Subdomain URL for the portal login
-  #   x-google-marketplace:
-  #     type: STRING
+  PORTAL_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the portal login
+    x-google-marketplace:
+      type: STRING
 
-  # WEBAPP_SUBDOMAIN:
-  #   type: string
-  #   title: Subdomain URL for the webapp login
-  #   x-google-marketplace:
-  #     type: STRING
+  WEBAPP_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the webapp login
+    x-google-marketplace:
+      type: STRING
 
-  # EXCEL_SUBDOMAIN:
-  #   type: string
-  #   title: Subdomain URL for the excel application login
-  #   x-google-marketplace:
-  #     type: STRING
+  EXCEL_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the excel application login
+    x-google-marketplace:
+      type: STRING
 
   ADMIN_EMAIL:
     type: string
@@ -216,15 +221,15 @@ properties:
     x-google-marketplace:
       type: STRING    
 
-  # INTEGRATOR_BUCKET:
-  #   type: string
-  #   title: Chata Google bucket where integrator model files are generated
-  #   x-google-marketplace:
-  #     type: STRING
+  INTEGRATOR_BUCKET:
+    type: string
+    title: Chata Google bucket where integrator model files are generated
+    x-google-marketplace:
+      type: STRING
 
-  # INTEGRATOR_ID:
-  #   type: integer
-  #   title: Unique ID of the Integrator. Value is an integer
+  INTEGRATOR_ID:
+    type: integer
+    title: Unique ID of the Integrator. Value is an integer
 
   RELEASE_VERSION:
     type: string
@@ -233,11 +238,11 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # INDEX_BUCKET:
-  #   type: string
-  #   title: Chata Google bucket where integrator model buckets data is stored and used for portal installs
-  #   x-google-marketplace:
-  #     type: STRING
+  INDEX_BUCKET:
+    type: string
+    title: Chata Google bucket where integrator model buckets data is stored and used for portal installs
+    x-google-marketplace:
+      type: STRING
 
   SPOT_INSTANCES_ENABLED:
     type: string
@@ -246,11 +251,11 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # DESTINATION_REGISTRY:
-  #   type: string
-  #   title: Marketplace registry URL where services images are kept
-  #   x-google-marketplace:
-  #     type: STRING
+  DESTINATION_REGISTRY:
+    type: string
+    title: Marketplace registry URL where services images are kept
+    x-google-marketplace:
+      type: STRING
 
   HELM_REPO_URL:
     type: string
@@ -270,21 +275,21 @@ required:
 - STORAGE_CLASS
 - SERVICE_ACCOUNT
 - PEM_SECRET
-# - JSON_SECRET
-# - JWT_SECRET
-# - DOCKER_SECRET
-# - BACKEND_SUBDOMAIN
-# - PORTAL_SUBDOMAIN
-# - WEBAPP_SUBDOMAIN
-# - EXCEL_SUBDOMAIN
-# - INTEGRATOR_BUCKET
-# - INTEGRATOR_ID
+- JSON_SECRET
+- JWT_SECRET
+- DOCKER_SECRET #(To be removed later)
+- BACKEND_SUBDOMAIN
+- PORTAL_SUBDOMAIN
+- WEBAPP_SUBDOMAIN
+- EXCEL_SUBDOMAIN
+- INTEGRATOR_BUCKET
+- INTEGRATOR_ID
 - ADMIN_EMAIL
 - ADMIN_FIRST_NAME
 - ADMIN_LAST_NAME
 - RELEASE_VERSION
-# - INDEX_BUCKET
+- INDEX_BUCKET
 - SPOT_INSTANCES_ENABLED
-# - DESTINATION_REGISTRY
+- DESTINATION_REGISTRY
 - HELM_REPO_URL
 - POST_DEPLOYMENTS_URL

@@ -27,7 +27,7 @@ properties:
     default: test
     x-google-marketplace:
       type: STRING
-
+      
   BACKEND_SUBDOMAIN:
     type: string
     default: 'api-marketplace.chata.io'

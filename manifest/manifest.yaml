@@ -159,6 +159,14 @@ spec:
         #   readOnly: true
         - name: deployable-pvc
           mountPath: "/deployable_files"
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "sleep 1800; exit 0"  # Adjust the delay here (30 minutes in this example)
+          initialDelaySeconds: 0
+          periodSeconds: 10
       volumes:
       - name: gcp-key
         secret:

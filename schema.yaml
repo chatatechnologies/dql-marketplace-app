@@ -97,18 +97,9 @@ properties:
               - rbac.authorization.k8s.io
               resources:
               - clusterrolebindings
-              verbs:
-              - '*'
-            - apiGroups:
-              - rbac.authorization.k8s.io
-              resources:
               - clusterroles
-              verbs:
-              - '*'
-            - apiGroups:
-              - rbac.authorization.k8s.io
-              resources:
               - rolebindings
+              - roles
               verbs:
               - '*'
             - apiGroups:
@@ -152,6 +143,28 @@ properties:
               - policy
               resources:
               - poddisruptionbudgets
+              verbs:
+              - '*'
+            - apiGroups:
+              - getambassador.io
+              resources:
+              - listeners
+              - mappings
+              - hosts
+              - modules
+              verbs:
+              - '*'
+            - apiGroups:
+              - cert-manager.io
+              resources:
+              - clusterissuers
+              - certificates
+              verbs:
+              - '*'
+            - apiGroups:
+              - networking.k8s.io
+              resources:
+              - ingressclasses
               verbs:
               - '*'
 

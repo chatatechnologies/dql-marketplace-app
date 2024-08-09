@@ -114,14 +114,14 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # TLS_CERTIFICATE_VALUE:
-  #   type: string
-  #   default: ''
-  #   x-google-marketplace:
-  #     type: STRING
+  TLS_CERTIFICATE_VALUE:
+    type: string
+    default: ''
+    x-google-marketplace:
+      type: STRING
 
-  # TLS_PRIVATE_KEY_VALUE:
-  #   type: string
-  #   default: ''
-  #   x-google-marketplace:
-  #     type: STRING
+  TLS_PRIVATE_KEY_VALUE:
+    type: string
+    default: ''
+    x-google-marketplace:
+      type: STRING

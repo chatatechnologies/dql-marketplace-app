@@ -103,3 +103,25 @@ properties:
     default: 'gs://chata-deployable-inference'
     x-google-marketplace:
       type: STRING
+
+  REPLICAS_OVERRIDE_VALUE:
+    type: integer
+    default: 1
+
+  CPU_OVERRIDE_VALUE:
+    type: string
+    default: '0.5'
+    x-google-marketplace:
+      type: STRING
+
+  # TLS_CERTIFICATE_VALUE:
+  #   type: string
+  #   default: ''
+  #   x-google-marketplace:
+  #     type: STRING
+
+  # TLS_PRIVATE_KEY_VALUE:
+  #   type: string
+  #   default: ''
+  #   x-google-marketplace:
+  #     type: STRING

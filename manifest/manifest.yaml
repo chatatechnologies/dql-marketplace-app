@@ -35,6 +35,10 @@ data:
   destination_registry: "${DESTINATION_REGISTRY}"
   helm_repo_url: "${HELM_REPO_URL}"
   post_deployment_files_url: "${POST_DEPLOYMENTS_URL}"
+  resource_override_all_replicas: "${REPLICAS_OVERRIDE_VALUE}"
+  resource_override_all_cpu_request: "${CPU_OVERRIDE_VALUE}"
+  tls_certificate_value: "${TLS_CERTIFICATE_VALUE}"
+  tls_private_key_value: "${TLS_PRIVATE_KEY_VALUE}"
 
 ---
 

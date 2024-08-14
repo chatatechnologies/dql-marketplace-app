@@ -255,7 +255,7 @@ properties:
   SPOT_INSTANCES_ENABLED:
     type: string
     default: ''
-    title: Install the deployments and statefulsets on SPOT/Preemptible nodes.
+    title: Install the deployments and statefulsets on SPOT/Preemptible nodes. Set to true or false
     x-google-marketplace:
       type: STRING
 

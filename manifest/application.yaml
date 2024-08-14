@@ -16,6 +16,8 @@ spec:
       app.kubernetes.io/name: "$INSTANCE_NAME"
   componentKinds:
   # The group is determined from the apiVersion: $GROUP_NAME/$VERSION
+  - group: v1
+    kind: Namespace
   - group: apps/v1
     kind: Statefulset
   - group: v1

@@ -6,13 +6,13 @@ properties:
       type: IMAGE
   PEM_SECRET:
     type: string
-    default: test
+    default: test==
     x-google-marketplace:
       type: STRING
 
   JSON_SECRET:
     type: string
-    default: test
+    default: test==
     x-google-marketplace:
       type: STRING
 
@@ -86,6 +86,12 @@ properties:
     x-google-marketplace:
       type: STRING
 
+  SPOT_INSTANCES_ENABLED:
+    type: string
+    default: 'true'
+    x-google-marketplace:
+      type: STRING
+
   DESTINATION_REGISTRY:
     type: string
     default: 'us.gcr.io/portable-deploy'
@@ -116,12 +122,12 @@ properties:
 
   TLS_CERTIFICATE_VALUE:
     type: string
-    default: ''
+    default: test
     x-google-marketplace:
       type: STRING
 
   TLS_PRIVATE_KEY_VALUE:
     type: string
-    default: ''
+    default: test
     x-google-marketplace:
       type: STRING

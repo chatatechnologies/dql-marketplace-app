@@ -3,7 +3,7 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '0.1.1'
+  publishedVersion: '1.0.0'
   publishedVersionMetadata:
     releaseNote: >-
       A first initial release to test.
@@ -29,8 +29,8 @@ properties:
 
   STORAGE_CLASS:
     type: string
-    title: StorageClass
     description: You can choose an existing StorageClass or create a new one.
+    title: You can choose an existing StorageClass or create a new one.
     x-google-marketplace:
       type: STORAGE_CLASS
       storageClass:
@@ -42,27 +42,298 @@ properties:
       type: SERVICE_ACCOUNT
       serviceAccount:
         description: >
-          Monitors cluster-wide app dependencies (such as x and y),
-          managing CoreOS application instances and their etcdclusters.
+          Name of a service account in the target namespace that
+          has cluster-admin permissions. This is needed for the operator
+          to manage resources.
         roles:
-        - type: ClusterRole        # This is a cluster-wide ClusterRole
-          rulesType: PREDEFINED
-          rulesFromRoleName: view  # Use predefined role named "view"
-        - type: Role               # This is a namespaced Role
-          rulesType: CUSTOM        # We specify our own custom RBAC rules
-          rules:
-          - apiGroups: ['apps.kubernetes.io']
-            resources: ['applications']
-            verbs: ['*']
         - type: ClusterRole
           rulesType: CUSTOM
           rules:
-          - apiGroups: ['etcd.database.coreos.com']
-            resources: ['etcdclusters']
-            verbs: ['*']
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs:
+                - '*'
+            - apiGroups:
+              - ""
+              resources:
+                - pods
+                - services
+                - endpoints
+                - persistentvolumeclaims
+                - events
+                - configmaps
+                - secrets
+                - serviceaccounts
+                - namespaces
+              verbs:
+                - '*'
+            - apiGroups:
+              - apps
+              resources:
+              - deployments
+              - daemonsets
+              - replicasets
+              - statefulsets
+              verbs:
+              - '*'
+            - apiGroups:
+              - extensions
+              resources:
+              - replicasets
+              - deployments
+              - daemonsets
+              - statefulsets
+              - ingresses
+              verbs:
+                - '*'
+            - apiGroups:
+              - batch
+              resources:
+              - jobs
+              - cronjobs
+              verbs:
+              - '*'
+            - apiGroups:
+              - rbac.authorization.k8s.io
+              resources:
+              - clusterrolebindings
+              - clusterroles
+              - rolebindings
+              - roles
+              verbs:
+              - '*'
+            - apiGroups:
+              - admissionregistration.k8s.io
+              resources:
+              - validatingwebhookconfigurations
+              verbs:
+              - '*'
+            - apiGroups:
+              - admissionregistration.k8s.io
+              resources:
+              - mutatingwebhookconfigurations
+              verbs:
+              - '*'
+            - apiGroups:
+              - apiregistration.k8s.io
+              resources:
+              - apiservices
+              verbs:
+              - '*'
+            - apiGroups:
+              - certificates.k8s.io
+              resources:
+              - certificatesigningrequests
+              - certificatesigningrequests/approval
+              verbs:
+              - '*'
+            - apiGroups:
+              - authentication.k8s.io
+              resources:
+              - tokenreviews
+              - subjectaccessreviews
+              verbs:
+              - '*'
+            - apiGroups:
+              - policy
+              resources:
+              - poddisruptionbudgets
+              verbs:
+              - '*'
+            - apiGroups:
+              - getambassador.io
+              resources:
+              - listeners
+              - mappings
+              - hosts
+              - modules
+              verbs:
+              - '*'
+            - apiGroups:
+              - cert-manager.io
+              resources:
+              - clusterissuers
+              - certificates
+              verbs:
+              - '*'
+            - apiGroups:
+              - networking.k8s.io
+              resources:
+              - ingressclasses
+              verbs:
+              - '*'
+
+  PEM_SECRET:
+    type: string
+    title: base64 encoded value of pem file for portal authentication
+    x-google-marketplace:
+      type: STRING
+
+  JSON_SECRET:
+    type: string
+    title: base64 encoded value of service account json file for portal authentication
+    x-google-marketplace:
+      type: STRING
+
+  JWT_SECRET:
+    type: string
+    title: base64 encoded value of JWT credentials json file for portal authentication
+    x-google-marketplace:
+      type: STRING
+
+  DOCKER_SECRET: # (To be removed later)
+    type: string
+    title: base64 encoded value of service account json file for imagepullsecret from private registry
+    x-google-marketplace:
+      type: STRING
+
+  BACKEND_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the API calls
+    x-google-marketplace:
+      type: STRING
+
+  PORTAL_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the portal login
+    x-google-marketplace:
+      type: STRING
+
+  WEBAPP_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the webapp login
+    x-google-marketplace:
+      type: STRING
+
+  EXCEL_SUBDOMAIN:
+    type: string
+    title: Subdomain URL for the excel application login
+    x-google-marketplace:
+      type: STRING
+
+  ADMIN_EMAIL:
+    type: string
+    title: Email of the Admin user to login to the portal
+    x-google-marketplace:
+      type: STRING
+
+  ADMIN_FIRST_NAME:
+    type: string
+    title: First name of the Admin user
+    x-google-marketplace:
+      type: STRING  
+
+  ADMIN_LAST_NAME:
+    type: string
+    title: Last name of the Admin user
+    x-google-marketplace:
+      type: STRING    
+
+  INTEGRATOR_BUCKET:
+    type: string
+    title: Chata Google bucket where integrator model files are generated
+    x-google-marketplace:
+      type: STRING
+
+  INTEGRATOR_ID:
+    type: integer
+    title: Unique ID of the Integrator. Value is an integer
+
+  RELEASE_VERSION:
+    type: string
+    default: ''
+    title: Release version of the Integrator related model
+    x-google-marketplace:
+      type: STRING
+
+  INDEX_BUCKET:
+    type: string
+    title: Chata Google bucket where integrator model buckets data is stored and used for portal installs
+    x-google-marketplace:
+      type: STRING
+
+  SPOT_INSTANCES_ENABLED:
+    type: string
+    default: ''
+    title: Install the deployments and statefulsets on SPOT/Preemptible nodes. Set to true or false
+    x-google-marketplace:
+      type: STRING
+
+  DESTINATION_REGISTRY:
+    type: string
+    title: Marketplace registry URL where services images are kept
+    x-google-marketplace:
+      type: STRING
+
+  HELM_REPO_URL:
+    type: string
+    title: Chata Google bucket where helm charts for the services are placed
+    x-google-marketplace:
+      type: STRING
+
+  POST_DEPLOYMENTS_URL:
+    type: string
+    title: Chata Google bucket post install scripts for service configurations are placed
+    x-google-marketplace:
+      type: STRING
+
+  POST_DEPLOYMENTS_URL:
+    type: string
+    title: Chata Google bucket post install scripts for service configurations are placed
+    x-google-marketplace:
+      type: STRING
+
+  REPLICAS_OVERRIDE_VALUE:
+    type: integer
+    default:
+    title: Number of replicas of the service to override value in the chart file
+
+  CPU_OVERRIDE_VALUE:
+    type: string
+    default: ''
+    title: CPU value of the service to override value defined in the manifest
+    x-google-marketplace:
+      type: STRING
+
+  TLS_CERTIFICATE_VALUE:
+    type: string
+    default: ''
+    title: base64 encoded value of TLS certificate for emissary service https. cert-manager will be used for generating the certificate if the default is used when not defined
+    x-google-marketplace:
+      type: STRING
+
+  TLS_PRIVATE_KEY_VALUE:
+    type: string
+    default: ''
+    title: base64 encoded value of TLS private key for emissary service https. cert-manager will be used for generating the private key if the default is used when not defined
+    x-google-marketplace:
+      type: STRING
 
 required:
 - INSTANCE_NAME
 - NAMESPACE
 - STORAGE_CLASS
 - SERVICE_ACCOUNT
+- PEM_SECRET
+- JSON_SECRET
+- JWT_SECRET
+- DOCKER_SECRET #(To be removed later)
+- BACKEND_SUBDOMAIN
+- PORTAL_SUBDOMAIN
+- WEBAPP_SUBDOMAIN
+- EXCEL_SUBDOMAIN
+- INTEGRATOR_BUCKET
+- INTEGRATOR_ID
+- ADMIN_EMAIL
+- ADMIN_FIRST_NAME
+- ADMIN_LAST_NAME
+- RELEASE_VERSION
+- INDEX_BUCKET
+- SPOT_INSTANCES_ENABLED
+- DESTINATION_REGISTRY
+- HELM_REPO_URL
+- POST_DEPLOYMENTS_URL
+- REPLICAS_OVERRIDE_VALUE
+- CPU_OVERRIDE_VALUE
+- TLS_CERTIFICATE_VALUE
+- TLS_PRIVATE_KEY_VALUE

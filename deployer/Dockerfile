@@ -3,6 +3,7 @@ FROM gcr.io/cloud-marketplace-tools/k8s/deployer_envsubst:$MARKETPLACE_TOOLS_TAG
 
 COPY manifest/* /data/manifest/
 COPY schema.yaml /data/
+COPY apptest/deployer /data-test/
 
 # Provide registry prefix and tag for default values for images.
 ARG REGISTRY
@@ -12,5 +13,10 @@ RUN cat /data/schema.yaml \
     > /data/schema.yaml.new \
     && mv /data/schema.yaml.new /data/schema.yaml
 
-ENV WAIT_FOR_READY_TIMEOUT 2700
+RUN cat /data-test/schema.yaml \
+    | env -i "REGISTRY=$REGISTRY" "TAG=$TAG" envsubst \
+    > /data-test/schema.yaml.new \
+    && mv /data-test/schema.yaml.new /data-test/schema.yaml
+
+ENV WAIT_FOR_READY_TIMEOUT 6000
 ENV TESTER_TIMEOUT 2700

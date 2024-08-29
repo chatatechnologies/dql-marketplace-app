@@ -3,7 +3,7 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '1.0.0'
+  publishedVersion: '1.0.1-gcp.alpha1'
   publishedVersionMetadata:
     releaseNote: >-
       A first initial release to test.
@@ -15,6 +15,8 @@ x-google-marketplace:
           type: FULL
         IMAGE_TAG:
           type: TAG
+        IMAGE_REPO:
+          type: REPO_WITH_REGISTRY
 
 properties:
   INSTANCE_NAME:
@@ -181,12 +183,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  DOCKER_SECRET: # (To be removed later)
-    type: string
-    title: base64 encoded value of service account json file for imagepullsecret from private registry
-    x-google-marketplace:
-      type: STRING
-
   BACKEND_SUBDOMAIN:
     type: string
     title: Subdomain URL for the API calls
@@ -285,7 +281,6 @@ properties:
 
   REPLICAS_OVERRIDE_VALUE:
     type: integer
-    default:
     title: Number of replicas of the service to override value in the chart file
 
   CPU_OVERRIDE_VALUE:
@@ -317,7 +312,6 @@ required:
 - PEM_SECRET
 - JSON_SECRET
 - JWT_SECRET
-- DOCKER_SECRET #(To be removed later)
 - BACKEND_SUBDOMAIN
 - PORTAL_SUBDOMAIN
 - WEBAPP_SUBDOMAIN

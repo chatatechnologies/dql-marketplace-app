@@ -21,12 +21,6 @@ properties:
     default: test
     x-google-marketplace:
       type: STRING
-
-  DOCKER_SECRET:
-    type: string
-    default: test
-    x-google-marketplace:
-      type: STRING
       
   BACKEND_SUBDOMAIN:
     type: string
@@ -117,17 +111,5 @@ properties:
   CPU_OVERRIDE_VALUE:
     type: string
     default: '0.5'
-    x-google-marketplace:
-      type: STRING
-
-  TLS_CERTIFICATE_VALUE:
-    type: string
-    default: test
-    x-google-marketplace:
-      type: STRING
-
-  TLS_PRIVATE_KEY_VALUE:
-    type: string
-    default: test
     x-google-marketplace:
       type: STRING

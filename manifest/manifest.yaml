@@ -1,12 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app.kubernetes.io/name: "$INSTANCE_NAME"
-  name: $NAMESPACE
-
----
 
 apiVersion: v1
 kind: ConfigMap
@@ -40,6 +32,7 @@ data:
   tls_certificate_value: "${TLS_CERTIFICATE_VALUE}"
   tls_private_key_value: "${TLS_PRIVATE_KEY_VALUE}"
   marketplace_image_tag: "${IMAGE_TAG}"
+  k8s_internal_svc_account: "${SERVICE_ACCOUNT}"
 
 ---
 
@@ -153,7 +146,7 @@ spec:
               - sh
               - -c
               - "exit 0"
-          initialDelaySeconds: 1800
+          initialDelaySeconds: 1200
           periodSeconds: 10
       volumes:
       - name: gcp-key

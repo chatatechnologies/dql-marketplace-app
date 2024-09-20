@@ -17,6 +17,102 @@ x-google-marketplace:
           type: TAG
         IMAGE_REPO:
           type: REPO_WITH_REGISTRY
+    nats:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    postgresql:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    caas-uniform-message:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-redisearch-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-integration-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-query-controller-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-user-management-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-notifications-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-credential-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-credential-proxy-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-egress-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    authority-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-excel-plugin:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-logic-engine-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-duckling-fork-service: # To be removed later
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-webapp-frontend:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-widget-support-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    sql-go-antlr:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    caas-integration-portal:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-redisearch-service-teams-bot:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-neural-parser-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-recommendation-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    sethybrid-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    emissary-ingress:
+      properties:
+        IMAGE_TAG:
+          type: TAG
 
 properties:
   INSTANCE_NAME:
@@ -255,11 +351,11 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  DESTINATION_REGISTRY:
-    type: string
-    title: Marketplace registry URL where services images are kept
-    x-google-marketplace:
-      type: STRING
+  # DESTINATION_REGISTRY:
+  #   type: string
+  #   title: Marketplace registry URL where services images are kept
+  #   x-google-marketplace:
+  #     type: STRING
 
   HELM_REPO_URL:
     type: string
@@ -324,7 +420,7 @@ required:
 - RELEASE_VERSION
 - INDEX_BUCKET
 - SPOT_INSTANCES_ENABLED
-- DESTINATION_REGISTRY
+# - DESTINATION_REGISTRY
 - HELM_REPO_URL
 - POST_DEPLOYMENTS_URL
 - REPLICAS_OVERRIDE_VALUE

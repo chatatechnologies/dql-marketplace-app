@@ -73,10 +73,6 @@ x-google-marketplace:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-duckling-fork-service: # To be removed later
-      properties:
-        IMAGE_TAG:
-          type: TAG
     autoql-webapp-frontend:
       properties:
         IMAGE_TAG:
@@ -97,10 +93,6 @@ x-google-marketplace:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-neural-parser-service:
-      properties:
-        IMAGE_TAG:
-          type: TAG
     autoql-recommendation-service:
       properties:
         IMAGE_TAG:
@@ -110,6 +102,10 @@ x-google-marketplace:
         IMAGE_TAG:
           type: TAG
     emissary-ingress:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    ambassador-agent:
       properties:
         IMAGE_TAG:
           type: TAG
@@ -351,12 +347,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # DESTINATION_REGISTRY:
-  #   type: string
-  #   title: Marketplace registry URL where services images are kept
-  #   x-google-marketplace:
-  #     type: STRING
-
   HELM_REPO_URL:
     type: string
     title: Chata Google bucket where helm charts for the services are placed
@@ -388,14 +378,12 @@ properties:
 
   TLS_CERTIFICATE_VALUE:
     type: string
-    default: ''
     title: base64 encoded value of TLS certificate for emissary service https. cert-manager will be used for generating the certificate if the default is used when not defined
     x-google-marketplace:
       type: STRING
 
   TLS_PRIVATE_KEY_VALUE:
     type: string
-    default: ''
     title: base64 encoded value of TLS private key for emissary service https. cert-manager will be used for generating the private key if the default is used when not defined
     x-google-marketplace:
       type: STRING
@@ -420,7 +408,6 @@ required:
 - RELEASE_VERSION
 - INDEX_BUCKET
 - SPOT_INSTANCES_ENABLED
-# - DESTINATION_REGISTRY
 - HELM_REPO_URL
 - POST_DEPLOYMENTS_URL
 - REPLICAS_OVERRIDE_VALUE

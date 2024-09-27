@@ -6,7 +6,7 @@ metadata:
   name: configmap-deployer
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-configmap
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-configmap
 data:
   dql_namespace: "${NAMESPACE}"
@@ -42,7 +42,7 @@ metadata:
   name: deployable-integrator-pem
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-pem
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-pem
 type: Opaque
 data:
@@ -56,7 +56,7 @@ metadata:
   name: integrator-volume-key
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-volume
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-volume
 type: Opaque
 data:
@@ -70,7 +70,7 @@ metadata:
   name: user-auth-volume
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-auth
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-auth
 type: Opaque
 data:
@@ -84,7 +84,7 @@ metadata:
   name: deployable-vm-pvc
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-pvc
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-pvc
 spec:
   accessModes:

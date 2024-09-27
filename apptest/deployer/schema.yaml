@@ -86,12 +86,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # DESTINATION_REGISTRY:
-  #   type: string
-  #   default: 'us.gcr.io/portable-deploy'
-  #   x-google-marketplace:
-  #     type: STRING
-
   HELM_REPO_URL:
     type: string
     default: 'gs://chata-deployable-helm-repo'

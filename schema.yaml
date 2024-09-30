@@ -366,8 +366,11 @@ properties:
       type: STRING
 
   REPLICAS_OVERRIDE_VALUE:
-    type: integer
+    type: string
+    default: ''
     title: Number of replicas of the service to override value in the chart file
+    x-google-marketplace:
+      type: STRING
 
   CPU_OVERRIDE_VALUE:
     type: string

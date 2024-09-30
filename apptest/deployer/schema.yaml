@@ -99,8 +99,10 @@ properties:
       type: STRING
 
   REPLICAS_OVERRIDE_VALUE:
-    type: integer
-    default: 1
+    type: string
+    default: '1'
+    x-google-marketplace:
+      type: STRING
 
   CPU_OVERRIDE_VALUE:
     type: string

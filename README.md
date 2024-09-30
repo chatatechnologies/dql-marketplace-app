@@ -94,8 +94,6 @@ community. The source code can be found on
 
 ### Install the Application
 
-#### Create the namespace, configmap and secrets required for the Application
-
 #### Create namespace in your Kubernetes cluster
 
 If you use a different namespace than `default`, run the command below to create
@@ -129,7 +127,69 @@ export NAMESPACE=$NAMESPACE
 Configure the container images:
 
 ```shell
-TAG=5.3
+TAG=1.0.1-gcp.alpha1
+export DEPLOYABLE_VM_IMAGE="gcr.io/chataai-public/gcp-marketplace:${TAG}"
+export DEPLOYER_IMAGE="gcr.io/chataai-public/gcp-marketplace/deployer:${TAG}"
+```
+
+The images above are referenced by
+[tag](https://docs.docker.com/engine/reference/commandline/tag). We recommend
+that you pin each image to an immutable
+[content digest](https://docs.docker.com/registry/spec/api/#content-digests).
+This ensures that the installed application always uses the same images,
+until you are ready to upgrade. To get the digest for the image, use the
+following script:
+
+```shell
+for i in "SPARK_OPERATOR_IMAGE"; do
+  repo=$(echo ${!i} | cut -d: -f1);
+  digest=$(docker pull ${!i} | sed -n -e 's/Digest: //p');
+  export $i="$repo@$digest";
+  env | grep $i;
+done
+```
+
+For the persistent disk used by the sample-app deployment, you will need to:
+
+ * Set the StorageClass name. Check your available options using the command below:
+   * ```kubectl get storageclass```
+   * Or check how to create a new StorageClass in [Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/storage-classes/#the-storageclass-resource)
+
+
+```shell
+export STORAGE_CLASS="standard" # provide your StorageClass name if not "standard"
+```
+
+#### Following are the environment variables provided by Chata
+RELEASE_VERSION 
+INDEX_BUCKET 
+INTEGRATOR_BUCKET 
+INTEGRATOR_ID 
+HELM_REPO_URL 
+POST_DEPLOYMENTS_URL
+PEM_SECRET 
+JSON_SECRET 
+JWT_SECRET
+
+#### Following are the environment variables needed to be entered
+PORTAL_SUBDOMAIN 
+BACKEND_SUBDOMAIN 
+WEBAPP_SUBDOMAIN 
+EXCEL_SUBDOMAIN 
+ADMIN_EMAIL 
+ADMIN_FIRST_NAME 
+ADMIN_LAST_NAME 
+TLS_CERTIFICATE_VALUE 
+TLS_PRIVATE_KEY_VALUE
+
+**NOTE: The subdomains to be configured should should have valid domain entry and  `TLS_CERTIFICATE_VALUE`, `TLS_PRIVATE_KEY_VALUE` should be base64 encoded values.**
+
+#### If you want to use spot instances and minimal resources, following are the environment variables needed to be entered
+
+```shell
+export SPOT_INSTANCES_ENABLED="true"
+export REPLICAS_OVERRIDE_VALUE="1"
+export CPU_OVERRIDE_VALUE="0.5"
 ```
 
 #### Configure the service account
@@ -169,7 +229,7 @@ expanded manifest file for future updates to the app.
 
 ```shell
 awk 'FNR==1 {print "---"}{print}' manifest/* \
-  | envsubst '$INSTANCE_NAME $NAMESPACE $DEPLOYABLE_VM_IMAGE $SERVICE_ACCOUNT $DEPLOYER_IMAGE' \
+  | envsubst '$INSTANCE_NAME $NAMESPACE $DEPLOYABLE_VM_IMAGE $SERVICE_ACCOUNT $DEPLOYER_IMAGE $PORTAL_SUBDOMAIN $BACKEND_SUBDOMAIN $WEBAPP_SUBDOMAIN $EXCEL_SUBDOMAIN $ADMIN_EMAIL $ADMIN_FIRST_NAME $ADMIN_LAST_NAME $RELEASE_VERSION $INDEX_BUCKET $INTEGRATOR_BUCKET $INTEGRATOR_ID $SPOT_INSTANCES_ENABLED $HELM_REPO_URL $POST_DEPLOYMENTS_URL $REPLICAS_OVERRIDE_VALUE $STORAGE_CLASS $CPU_OVERRIDE_VALUE $TLS_CERTIFICATE_VALUE $TLS_PRIVATE_KEY_VALUE $PEM_SECRET $JSON_SECRET $JWT_SECRET' \
   > "${INSTANCE_NAME}_manifest.yaml"
 ```
 

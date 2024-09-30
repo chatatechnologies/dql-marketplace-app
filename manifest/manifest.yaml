@@ -1,12 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app.kubernetes.io/name: "$INSTANCE_NAME"
-  name: $NAMESPACE
-
----
 
 apiVersion: v1
 kind: ConfigMap
@@ -14,7 +6,7 @@ metadata:
   name: configmap-deployer
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-configmap
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-configmap
 data:
   dql_namespace: "${NAMESPACE}"
@@ -32,13 +24,15 @@ data:
   integrator_id: "${INTEGRATOR_ID}"
   cloud: "gcp"
   spot_enabled: "${SPOT_INSTANCES_ENABLED}" # Set to true or false
-  destination_registry: "${DESTINATION_REGISTRY}"
+  destination_registry: "${IMAGE_REPO}"
   helm_repo_url: "${HELM_REPO_URL}"
   post_deployment_files_url: "${POST_DEPLOYMENTS_URL}"
   resource_override_all_replicas: "${REPLICAS_OVERRIDE_VALUE}"
   resource_override_all_cpu_request: "${CPU_OVERRIDE_VALUE}"
   tls_certificate_value: "${TLS_CERTIFICATE_VALUE}"
   tls_private_key_value: "${TLS_PRIVATE_KEY_VALUE}"
+  marketplace_image_tag: "${IMAGE_TAG}"
+  k8s_internal_svc_account: "${SERVICE_ACCOUNT}"
 
 ---
 
@@ -48,7 +42,7 @@ metadata:
   name: deployable-integrator-pem
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-pem
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-pem
 type: Opaque
 data:
@@ -62,7 +56,7 @@ metadata:
   name: integrator-volume-key
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-volume
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-volume
 type: Opaque
 data:
@@ -76,25 +70,11 @@ metadata:
   name: user-auth-volume
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-auth
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-auth
 type: Opaque
 data:
   jwt-credentials-prod.json: "$JWT_SECRET"
-
----
-# Docker secret (To be removed later)
-apiVersion: v1
-kind: Secret
-metadata:
-  name: chata-secret
-  namespace: $NAMESPACE
-  labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-imagepullsecret
-    app.kubernetes.io/component: $INSTANCE_NAME-imagepullsecret
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: "$DOCKER_SECRET"
 
 ---
 
@@ -104,7 +84,7 @@ metadata:
   name: deployable-vm-pvc
   namespace: $NAMESPACE
   labels:
-    app.kubernetes.io/name: $INSTANCE_NAME-pvc
+    app.kubernetes.io/name: $INSTANCE_NAME
     app.kubernetes.io/component: $INSTANCE_NAME-pvc
 spec:
   accessModes:
@@ -158,9 +138,6 @@ spec:
         - mountPath: /var/secrets/user/
           name: user-auth-volume
           readOnly: true
-        # - mountPath: /var/secrets/test/
-        #   name: test-volume
-        #   readOnly: true
         - name: deployable-pvc
           mountPath: "/deployable_files"
         readinessProbe:
@@ -168,8 +145,8 @@ spec:
             command:
               - sh
               - -c
-              - "sleep 1800; exit 0"  # Adjust the delay here (30 minutes in this example)
-          initialDelaySeconds: 0
+              - "exit 0"
+          initialDelaySeconds: 1200
           periodSeconds: 10
       volumes:
       - name: gcp-key
@@ -181,9 +158,6 @@ spec:
       - name: user-auth-volume  
         secret:
           secretName: user-auth-volume
-      # - name: test-volume  
-      #   secret:
-      #     secretName: test-volume
       - name: deployable-pvc
         persistentVolumeClaim:
           claimName: deployable-vm-pvc

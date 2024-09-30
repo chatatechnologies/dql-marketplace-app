@@ -3,7 +3,7 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '1.0.0'
+  publishedVersion: '1.0.1-gcp.alpha1'
   publishedVersionMetadata:
     releaseNote: >-
       A first initial release to test.
@@ -13,6 +13,100 @@ x-google-marketplace:
       properties:
         DEPLOYABLE_VM_IMAGE:
           type: FULL
+        IMAGE_TAG:
+          type: TAG
+        IMAGE_REPO:
+          type: REPO_WITH_REGISTRY
+    nats:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    postgresql:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    caas-uniform-message:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-redisearch-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-integration-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-query-controller-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-user-management-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-notifications-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-credential-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-credential-proxy-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-egress-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    authority-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-excel-plugin:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-logic-engine-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-webapp-frontend:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-widget-support-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    sql-go-antlr:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    caas-integration-portal:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-redisearch-service-teams-bot:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-recommendation-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    sethybrid-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    emissary-ingress:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    ambassador-agent:
+      properties:
         IMAGE_TAG:
           type: TAG
 
@@ -181,12 +275,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  DOCKER_SECRET: # (To be removed later)
-    type: string
-    title: base64 encoded value of service account json file for imagepullsecret from private registry
-    x-google-marketplace:
-      type: STRING
-
   BACKEND_SUBDOMAIN:
     type: string
     title: Subdomain URL for the API calls
@@ -259,12 +347,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  DESTINATION_REGISTRY:
-    type: string
-    title: Marketplace registry URL where services images are kept
-    x-google-marketplace:
-      type: STRING
-
   HELM_REPO_URL:
     type: string
     title: Chata Google bucket where helm charts for the services are placed
@@ -284,9 +366,11 @@ properties:
       type: STRING
 
   REPLICAS_OVERRIDE_VALUE:
-    type: integer
-    default:
+    type: string
+    default: ''
     title: Number of replicas of the service to override value in the chart file
+    x-google-marketplace:
+      type: STRING
 
   CPU_OVERRIDE_VALUE:
     type: string
@@ -297,14 +381,12 @@ properties:
 
   TLS_CERTIFICATE_VALUE:
     type: string
-    default: ''
     title: base64 encoded value of TLS certificate for emissary service https. cert-manager will be used for generating the certificate if the default is used when not defined
     x-google-marketplace:
       type: STRING
 
   TLS_PRIVATE_KEY_VALUE:
     type: string
-    default: ''
     title: base64 encoded value of TLS private key for emissary service https. cert-manager will be used for generating the private key if the default is used when not defined
     x-google-marketplace:
       type: STRING
@@ -317,7 +399,6 @@ required:
 - PEM_SECRET
 - JSON_SECRET
 - JWT_SECRET
-- DOCKER_SECRET #(To be removed later)
 - BACKEND_SUBDOMAIN
 - PORTAL_SUBDOMAIN
 - WEBAPP_SUBDOMAIN
@@ -330,7 +411,6 @@ required:
 - RELEASE_VERSION
 - INDEX_BUCKET
 - SPOT_INSTANCES_ENABLED
-- DESTINATION_REGISTRY
 - HELM_REPO_URL
 - POST_DEPLOYMENTS_URL
 - REPLICAS_OVERRIDE_VALUE

@@ -21,12 +21,6 @@ properties:
     default: test
     x-google-marketplace:
       type: STRING
-
-  DOCKER_SECRET:
-    type: string
-    default: test
-    x-google-marketplace:
-      type: STRING
       
   BACKEND_SUBDOMAIN:
     type: string
@@ -72,7 +66,7 @@ properties:
 
   INTEGRATOR_BUCKET:
     type: string
-    default: 'gs://atctest_chata-engineering_63e14148a85989076c201e44'
+    default: 'gs://atctest_chata-engineering_65ea66aabd53b76a6abffe06'
     x-google-marketplace:
       type: STRING
 
@@ -82,19 +76,13 @@ properties:
 
   INDEX_BUCKET:
     type: string
-    default: 'gs://chata-dql-index-3010'
+    default: 'gs://chata-dql-index-3010-test'
     x-google-marketplace:
       type: STRING
 
   SPOT_INSTANCES_ENABLED:
     type: string
     default: 'true'
-    x-google-marketplace:
-      type: STRING
-
-  DESTINATION_REGISTRY:
-    type: string
-    default: 'us.gcr.io/portable-deploy'
     x-google-marketplace:
       type: STRING
 
@@ -111,8 +99,10 @@ properties:
       type: STRING
 
   REPLICAS_OVERRIDE_VALUE:
-    type: integer
-    default: 1
+    type: string
+    default: '1'
+    x-google-marketplace:
+      type: STRING
 
   CPU_OVERRIDE_VALUE:
     type: string

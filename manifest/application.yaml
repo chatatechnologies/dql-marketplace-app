@@ -4,7 +4,7 @@ metadata:
   name: "$INSTANCE_NAME"
   namespace: "$NAMESPACE"
   annotations:
-    marketplace.cloud.google.com/deploy-info: '{"partner_id": "dql-test", "product_id": "dql", "partner_name": "dql-test"}'
+    marketplace.cloud.google.com/deploy-info: '{"partner_id": "dql-marketplace", "product_id": "dql", "partner_name": "dql-marketplace"}'
   labels:
     app.kubernetes.io/name: "$INSTANCE_NAME"
 spec:

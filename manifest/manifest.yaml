@@ -33,6 +33,7 @@ data:
   tls_private_key_value: "${TLS_PRIVATE_KEY_VALUE}"
   marketplace_image_tag: "${IMAGE_TAG}"
   k8s_internal_svc_account: "${SERVICE_ACCOUNT}"
+  reportingSecret: "${reportingSecret}"
 
 ---
 
@@ -174,23 +175,16 @@ data:
     identities:
     - name: gcp
       gcp:
-        encodedServiceAccountKey: $AGENT_ENCODED_KEY
-    
+        encodedServiceAccountKey: $AGENT_ENCODED_KEY  
     # The metrics section defines the metric that will be reported. Metric names should match verbatim the identifiers created during pricing setup.
     metrics:
-    - name: requests
+    - name: API_Call_Pricing
       type: int
       endpoints:
       - name: on_disk
       - name: servicecontrol
       aggregation:
         bufferSeconds: 60
-    - name: instance_time
-      type: int
-      endpoints:
-      - name: on_disk
-      - name: servicecontrol
-      passthrough: {}
 
     # The endpoints section defines where metering data is ultimately sent. Currently supported endpoints include:
     # * disk - some directory on the local filesystem
@@ -203,56 +197,6 @@ data:
     - name: servicecontrol
       servicecontrol:
         identity: gcp
-        serviceName: my-application.mp-my-company.appspot.com
+        serviceName: autoql-by-chata.ai.endpoints.chataai-public.cloud.goog
         consumerId: $AGENT_CONSUMER_ID  # From the reporting secret.
-    sources:
-    - name: instance_time_heartbeat
-      heartbeat:
-        metric: instance_time
-        intervalSeconds: 60
-        value:
-          int64Value: 60
-
-# ---
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: $INSTANCE_NAME-ubbagent-app
-#   labels:
-#     app.kubernetes.io/name: "$INSTANCE_NAME"
-#     app.kubernetes.io/component: $INSTANCE_NAME-ubbagent-app
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels: $INSTANCE_NAME-ubbagent-app
-#   template:
-#     metadata:
-#       labels: $INSTANCE_NAME-ubbagent-app
-#     spec:
-#       containers:
-#       - name: ubbagent
-#         image: $imageUbbagent
-#         env:
-#         - name: AGENT_CONFIG_FILE
-#           value: "/etc/ubbagent/config.yaml"
-#         - name: AGENT_LOCAL_PORT
-#           value: "1234"
-#         - name: AGENT_ENCODED_KEY
-#           valueFrom:
-#             secretKeyRef:
-#               name: $reportingSecret
-#               key: reporting-key
-#         - name: AGENT_CONSUMER_ID
-#           valueFrom:
-#             secretKeyRef:
-#               name: $reportingSecret
-#               key: consumer-id
-#         volumeMounts:
-#         - name: ubbagent-config
-#           mountPath: /etc/ubbagent
-#       volumes:
-#       - name: ubbagent-config
-#         configMap:
-#           name: ubbagent-config
 

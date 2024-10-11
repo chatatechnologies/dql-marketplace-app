@@ -19,8 +19,8 @@ x-google-marketplace:
           type: REPO_WITH_REGISTRY
     ubbagent:
       properties:
-        imageUbbagent:
-          type: FULL
+        IMAGE_TAG:
+          type: TAG
     nats:
       properties:
         IMAGE_TAG:
@@ -102,6 +102,10 @@ x-google-marketplace:
         IMAGE_TAG:
           type: TAG
     sethybrid-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    autoql-usage-service:
       properties:
         IMAGE_TAG:
           type: TAG

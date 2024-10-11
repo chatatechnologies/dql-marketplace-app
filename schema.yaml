@@ -17,6 +17,10 @@ x-google-marketplace:
           type: TAG
         IMAGE_REPO:
           type: REPO_WITH_REGISTRY
+    ubbagent:
+      properties:
+        IMAGE_TAG:
+          type: TAG
     nats:
       properties:
         IMAGE_TAG:
@@ -101,6 +105,10 @@ x-google-marketplace:
       properties:
         IMAGE_TAG:
           type: TAG
+    autoql-usage-service:
+      properties:
+        IMAGE_TAG:
+          type: TAG
     emissary-ingress:
       properties:
         IMAGE_TAG:
@@ -129,6 +137,12 @@ properties:
       type: STORAGE_CLASS
       storageClass:
         type: SSD
+
+  reportingSecret:
+    type: string
+    title: The Secret resource name that contains the credentials for usage reports and are used by the usage-based billing agent.
+    x-google-marketplace:
+      type: REPORTING_SECRET
 
   SERVICE_ACCOUNT:
     type: string
@@ -395,6 +409,7 @@ required:
 - INSTANCE_NAME
 - NAMESPACE
 - STORAGE_CLASS
+- reportingSecret
 - SERVICE_ACCOUNT
 - PEM_SECRET
 - JSON_SECRET

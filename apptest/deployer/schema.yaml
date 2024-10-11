@@ -112,7 +112,7 @@ properties:
 
   TLS_CERTIFICATE_VALUE:
     type: string
-    default: test
+    default: test=
     x-google-marketplace:
       type: STRING
 

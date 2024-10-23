@@ -163,40 +163,40 @@ spec:
         persistentVolumeClaim:
           claimName: deployable-vm-pvc
 
----
+# ---
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: ubbagent-config
-data:
-  config.yaml: |
-    # The identity section contains authentication information used by the agent.
-    identities:
-    - name: gcp
-      gcp:
-        encodedServiceAccountKey: $AGENT_ENCODED_KEY  
-    # The metrics section defines the metric that will be reported. Metric names should match verbatim the identifiers created during pricing setup.
-    metrics:
-    - name: API_Call_Pricing
-      type: int
-      endpoints:
-      - name: on_disk
-      - name: servicecontrol
-      aggregation:
-        bufferSeconds: 60
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: ubbagent-config
+# data:
+#   config.yaml: |
+#     # The identity section contains authentication information used by the agent.
+#     identities:
+#     - name: gcp
+#       gcp:
+#         encodedServiceAccountKey: $AGENT_ENCODED_KEY  
+#     # The metrics section defines the metric that will be reported. Metric names should match verbatim the identifiers created during pricing setup.
+#     metrics:
+#     - name: API_Call_Pricing
+#       type: int
+#       endpoints:
+#       - name: on_disk
+#       - name: servicecontrol
+#       aggregation:
+#         bufferSeconds: 60
 
-    # The endpoints section defines where metering data is ultimately sent. Currently supported endpoints include:
-    # * disk - some directory on the local filesystem
-    # * servicecontrol - Google Service Control
-    endpoints:
-    - name: on_disk
-      disk:
-        reportDir: /var/lib/ubbagent/reports
-        expireSeconds: 3600
-    - name: servicecontrol
-      servicecontrol:
-        identity: gcp
-        serviceName: autoql-by-chata.ai.endpoints.chataai-public.cloud.goog
-        consumerId: $AGENT_CONSUMER_ID  # From the reporting secret.
+#     # The endpoints section defines where metering data is ultimately sent. Currently supported endpoints include:
+#     # * disk - some directory on the local filesystem
+#     # * servicecontrol - Google Service Control
+#     endpoints:
+#     - name: on_disk
+#       disk:
+#         reportDir: /var/lib/ubbagent/reports
+#         expireSeconds: 3600
+#     - name: servicecontrol
+#       servicecontrol:
+#         identity: gcp
+#         serviceName: autoql-by-chata.ai.endpoints.chataai-public.cloud.goog
+#         consumerId: $AGENT_CONSUMER_ID  # From the reporting secret.
 

@@ -138,11 +138,11 @@ properties:
       storageClass:
         type: SSD
 
-  # reportingSecret:
-  #   type: string
-  #   title: The Secret resource name that contains the credentials for usage reports and are used by the usage-based billing agent.
-  #   x-google-marketplace:
-  #     type: REPORTING_SECRET
+  reportingSecret:
+    type: string
+    title: The Secret resource name that contains the credentials for usage reports and are used by the usage-based billing agent.
+    x-google-marketplace:
+      type: REPORTING_SECRET
 
   SERVICE_ACCOUNT:
     type: string
@@ -425,7 +425,7 @@ required:
 - INSTANCE_NAME
 - NAMESPACE
 - STORAGE_CLASS
-# - reportingSecret
+- reportingSecret
 - SERVICE_ACCOUNT
 - PEM_SECRET
 - JSON_SECRET

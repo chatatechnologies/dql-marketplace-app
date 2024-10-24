@@ -225,7 +225,7 @@ kubectl apply -f "${INSTANCE_NAME}_sa_manifest.yaml" \
 #### Expand the manifest template
 
 Use `envsubst` to expand the template. We recommend that you save the
-expanded manifest file for future updates to the app.
+expanded manifest file for future updates to the app. If minimal resources are not needed, remove those from the below command.
 
 ```shell
 awk 'FNR==1 {print "---"}{print}' manifest/* \

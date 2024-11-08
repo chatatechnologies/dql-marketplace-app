@@ -127,7 +127,7 @@ export NAMESPACE=$NAMESPACE
 Configure the container images:
 
 ```shell
-TAG=1.0.1-gcp.alpha1
+TAG=1.0.1-gmp1
 export DEPLOYABLE_VM_IMAGE="gcr.io/chataai-public/gcp-marketplace:${TAG}"
 export DEPLOYER_IMAGE="gcr.io/chataai-public/gcp-marketplace/deployer:${TAG}"
 ```

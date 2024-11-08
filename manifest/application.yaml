@@ -4,13 +4,59 @@ metadata:
   name: "$INSTANCE_NAME"
   namespace: "$NAMESPACE"
   annotations:
+    kubernetes-engine.cloud.google.com/icon: >-
+      data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABuCAMAAADbNSdmAAAAAXNSR0IArs4c6QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAADlQTFRFR3BM9/z/8/r+6vb94fL71Oz5y+n4v+P2sNzzm9Lwj83ue8Tqbr/pYrrnSLHjWbbmPaziL6jgKKbfqcJriQAAABB0Uk5TAAkWJjdJW2+FnLDE1uz5/Xpz0SEAAAQTSURBVHja7ZrXctwwDEXDBvYC/v/HJt5kPLGwa7Apk4e9T55ZS5BAlENQP95663+SEMoA2IfAGCXFPzGrwIWY66dyit5qebtZG3JtDfunEFvNwel7nQw+NexE2HKwN760tLFgfyos8T7LwqbWX6ql2yzDF7tUCe6xq2Pr3yuaWxbYN2QMF6/vcHTGzilZcd7RHjurFs472+bOC7MVd7wwrxL08VTqI8JkD5do3/qQqj9bRUzsY2rpqK+lq50KOxXWo77WoT15txAztV3CQV8LV5F0owDKuNjo85iDoRUKtfu4v6WWqxM3VsuH3d+Wrz+1qI552l9DC+NnB3SZVC9zzNOkD2cnX5e05k6Fl72GFv7dC6AQd+hDSUxCq/z9TiqSAABxJonz1dPxC+O468/o1ZmqVfB6Y/31wfCW8FIkVYu9LAX9B3lLEl8xwxKXnOjK6rqESNJFk3SrIM83REyGFJhCnk3t71quudRozFoaXnCctTADH39Yd6uXgEx7wEAxb0EfZi182vUg4cVw3eRciEj6PP98FPr2WasE9RxRyIqYo6yF2T5PunCNwS1fC5txLGiUKyehT4YyClSQaZ3ZqVpXB0YzvNWo7iDVvi6F0tLwkucaYravvZPOdWXIlADGu1hvq4AtPQmtbxq8MHV7/0bbLA0tKkVSucCaYQoWTn2b9A2PQJ8KJLSAoVFcmnvx9/GaiQkSXitlUxDWYm8Dlc8CXppWLT2d9ysERNGDdlgO+voC9CmGtYYRfJtqW1QLiVCtnEUPlrUYEFmEPhNwZaZiMjLEwsnlJaBQvuxBn/Jt6cmFrbg1HrCEkwevN4HGxlRDrIRj5DIPy5lcaldyg9EtD+HSGRBxFdkd4gT0iakJIk/n56EPEh0tbCBxNssTxGLlRs1rTqxS7RSomkygTy1SbXNqq6+RSd8owVR64R3QZxLDWpz02p5C2oZX1lKzp58rwUm5PJntrU/US6ylpjd7C1Gi3OJGhJ/0nWct3tf8ckk6y/Bif2PNF3sTkG+IK9Dn1dzxNLZArliqBQlmWcsd2GnyKwbMmGfD11HPEZOXhw7Ys506rV09edcRZ6BvYIJIJaTSxoB9yH3I/lJCOuljWGuOahX4GFOuuX5Rab2PT/oMHfMAW2FTaYj9G/HQJ59QrR7dcvDCDBMTRMHPsznRVOZLezAzIMz7WjPgMA55vvZxYYExVOpsaIlQ+oTQy6dwyJzWclHBC5MZm4FaMcWTvIoVC4TGjzx4BTMw5y5O7H9cxpd+Exc+nXFsULMgIlyZJwARZg1jBOa0FssI8oSCk6qOogdi+xB+qGWvh4ZDZVI5kO72aKNgrfMhBgdyCK3AWgAD5kNaG6PNKwE8OjYYsl5C/PlDGVDvr+bfemtBPwF7MA8KnS9lJAAAAABJRU5ErkJggg==
     marketplace.cloud.google.com/deploy-info: '{"partner_id": "dql-marketplace", "product_id": "dql", "partner_name": "dql-marketplace"}'
   labels:
     app.kubernetes.io/name: "$INSTANCE_NAME"
 spec:
   descriptor:
     type: Chata DQL instance
-    version: '1.0.1-gcp.alpha1'
+    version: '1.0.1-gmp1'
+    description: >-
+      Deployable AutoQL solution by Chata is a platform to accelerate data-driven decision-making and eliminate repetitive reporting tasks.
+      With AutoQL empower your non-technical users to access real-time data with ease, increase productivity and reduce the demand on the technical team – all 
+      while ensuring the highest data security.
+    maintainers:
+    - name: Chata Technologies Inc.
+      url: https://chata.ai
+    links:
+    - description: 'User Guide: Google Click to Deploy AutoQL by Chata.ai dql-marketplace'
+      url: https://github.com/chatatechnologies/dql-marketplace-app/blob/master/README.md
+    notes: |-
+      # Open your Application site
+
+      Get the external IP of your dql-marketplace site using the following command:
+
+      ```
+      SERVICE_IP=$(kubectl --namespace $NAMESPACE get configmap configmap-login-details -o jsonpath='{.data.external_domain_ip}')
+
+      echo "${SERVICE_IP}"
+      ```
+
+      # Setup subdomains for the application
+
+      ```
+      Using the above IP, setup the subdomains in your Domain for the values used for BACKEND_SUBDOMAIN, PORTAL_SUBDOMAIN,
+      WEBAPP_SUBDOMAIN and EXCEL_SUBDOMAIN.
+      ```
+      
+      # Create password for the admin user login ADMIN_EMAIL. URL to setup password:
+
+      ```
+      URL=$(kubectl --namespace $NAMESPACE get configmap configmap-login-details -o jsonpath='{.data.login_url}')
+
+      echo "${URL}"
+      ```
+
+      # Login to the portal:
+
+      Once the password is setup, the login page appears and the credentials can be used to login
+      to the portal. Alternatively, the PORTAL_SUBDOMAIN URL can be used.
+
+      ```
+      echo "https://${PORTAL_SUBDOMAIN}"
+      ```
   selector:
     matchLabels:
       app.kubernetes.io/name: "$INSTANCE_NAME"

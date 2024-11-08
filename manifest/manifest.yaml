@@ -128,7 +128,14 @@ spec:
               command:
                 - sh
                 - -c
-                - gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json;
+                - |
+                  echo "Starting postStart hook..."
+                  gcloud --version
+                  if ! gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json; then
+                    echo "Failed to authenticate with service account, continuing pod start..."
+                  else
+                    echo "Service account authenticated successfully"
+                  fi
         volumeMounts:
         - mountPath: /var/secrets/google/
           name: gcp-key

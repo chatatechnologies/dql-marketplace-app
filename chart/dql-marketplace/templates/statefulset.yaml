@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: deployable-vm
+  namespace: {{ .Release.Namespace }}
+spec:
+  serviceName: deployable-vm
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployable-vm
+  template:
+    metadata:
+      labels:
+        app: deployable-vm
+        app.kubernetes.io/name: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ .Values.SERVICE_ACCOUNT }}
+      containers:
+      - name: deployable-vm-image
+        image: {{ .Values.statefulset.image.full }}
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: configmap-deployer
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - sh
+                - -c
+                - |
+                  echo "Starting postStart hook..."
+                  gcloud --version
+                  if ! gcloud auth activate-service-account --key-file=/var/secrets/google/chata-secret.json; then
+                    echo "Failed to authenticate with service account, continuing pod start..."
+                  else
+                    echo "Service account authenticated successfully"
+                  fi
+        volumeMounts:
+          - name: gcp-key
+            mountPath: /var/secrets/google/
+            readOnly: true
+          - name: deployable-integrator-pem
+            mountPath: /var/secrets/pem/
+            readOnly: true
+          - name: user-auth-volume
+            mountPath: /var/secrets/user/
+            readOnly: true
+          - name: deployable-pvc
+            mountPath: /deployable_files
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "exit 0"
+          initialDelaySeconds: 1200
+          periodSeconds: 10
+      volumes:
+        - name: gcp-key
+          secret:
+            secretName: integrator-volume-key
+        - name: deployable-integrator-pem
+          secret:
+            secretName: deployable-integrator-pem
+        - name: user-auth-volume
+          secret:
+            secretName: user-auth-volume
+        - name: deployable-pvc
+          persistentVolumeClaim:
+            claimName: deployable-vm-pvc

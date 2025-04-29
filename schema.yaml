@@ -3,133 +3,133 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '1.0.1-gmp1'
+  publishedVersion: '1.1.1-gmp1'
   publishedVersionMetadata:
     releaseNote: >-
-      A first initial release to test.
+      Building deploying using helm from envsubst
 
   images: 
     '':
       properties:
-        DEPLOYABLE_VM_IMAGE:
+        statefulset.image.full:
           type: FULL
-        IMAGE_TAG:
+        statefulset.image.tag:
           type: TAG
-        IMAGE_REPO:
+        statefulset.image.repo:
           type: REPO_WITH_REGISTRY
-    ubbagent:
+    ubbagent.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    nats:
+    nats.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    postgresql:
+    postgresql.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    caas-uniform-message:
+    caas-uniform-message.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-redisearch-service:
+    autoql-redisearch-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-integration-service:
+    autoql-integration-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-query-controller-service:
+    autoql-query-controller-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-user-management-service:
+    autoql-user-management-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-notifications-service:
+    autoql-notifications-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-credential-service:
+    autoql-credential-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-credential-proxy-service:
+    autoql-credential-proxy-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-egress-service:
+    autoql-egress-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    authority-service:
+    authority-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-excel-plugin:
+    autoql-excel-plugin.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-logic-engine-service:
+    autoql-logic-engine-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-webapp-frontend:
+    autoql-webapp-frontend.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-widget-support-service:
+    autoql-widget-support-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    sql-go-antlr:
+    sql-go-antlr.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    caas-integration-portal:
+    caas-integration-portal.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-redisearch-service-teams-bot:
+    autoql-redisearch-service-teams-bot.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-recommendation-service:
+    autoql-recommendation-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    sethybrid-service:
+    sethybrid-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    autoql-usage-service:
+    autoql-usage-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    emissary-ingress:
+    emissary-ingress.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
-    ambassador-agent:
+    ambassador-agent.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG
 
 properties:
-  INSTANCE_NAME:
+  name:
     type: string
     x-google-marketplace:
       type: NAME
-
-  NAMESPACE:
+      
+  namespace:
     type: string
     x-google-marketplace:
       type: NAMESPACE
 
-  STORAGE_CLASS:
+  statefulset.persistence.storageClass:
     type: string
     description: You can choose an existing StorageClass or create a new one.
     title: Storage Class
@@ -272,89 +272,89 @@ properties:
               verbs:
               - '*'
 
-  PEM_SECRET:
+  secrets.PEM_SECRET:
     type: string
     title: ENCODED PEM SECRET
     description: base64 encoded value of pem file for portal authentication. Command to encode a file:base64 -i <input_file>. Example:base64 -i deployable-integrator.pem
     x-google-marketplace:
       type: STRING
 
-  JSON_SECRET:
+  secrets.JSON_SECRET:
     type: string
     title: ENCODED JSON SECRET
     description: base64 encoded value of service account json file for portal authentication. Command to encode a file:base64 -i <input_file>. Example:base64 -i chata-secret.json
     x-google-marketplace:
       type: STRING
 
-  JWT_SECRET:
+  secrets.JWT_SECRET:
     type: string
     title: ENCODED JWT SECRET
     description: base64 encoded value of JWT credentials json file for portal authentication. Command to encode a file:base64 -i <input_file>. Example:base64 -i jwt-credentials-prod.json
     x-google-marketplace:
       type: STRING
 
-  BACKEND_SUBDOMAIN:
+  configmap.BACKEND_SUBDOMAIN:
     type: string
     title: BACKEND SUBDOMAIN
     description: Subdomain URL for the API calls
     x-google-marketplace:
       type: STRING
 
-  PORTAL_SUBDOMAIN:
+  configmap.PORTAL_SUBDOMAIN:
     type: string
     title: PORTAL SUBDOMAIN
     description: Subdomain URL for the portal login
     x-google-marketplace:
       type: STRING
 
-  WEBAPP_SUBDOMAIN:
+  configmap.WEBAPP_SUBDOMAIN:
     type: string
     title: WEBAPP SUBDOMAIN
     description: Subdomain URL for the webapp login
     x-google-marketplace:
       type: STRING
 
-  EXCEL_SUBDOMAIN:
+  configmap.EXCEL_SUBDOMAIN:
     type: string
     title: EXCEL SUBDOMAIN
     description: Subdomain URL for the excel application login
     x-google-marketplace:
       type: STRING
 
-  ADMIN_EMAIL:
+  configmap.ADMIN_EMAIL:
     type: string
     title: ADMIN EMAIL
     description: Email of the Admin user to login to the portal
     x-google-marketplace:
       type: STRING
 
-  ADMIN_FIRST_NAME:
+  configmap.ADMIN_FIRST_NAME:
     type: string
     title: ADMIN FIRST NAME
     description: First name of the Admin user
     x-google-marketplace:
       type: STRING  
 
-  ADMIN_LAST_NAME:
+  configmap.ADMIN_LAST_NAME:
     type: string
     title: ADMIN LAST NAME
     description: Last name of the Admin user
     x-google-marketplace:
       type: STRING    
 
-  INTEGRATOR_BUCKET:
+  configmap.INTEGRATOR_BUCKET:
     type: string
     title: INTEGRATOR BUCKET
     description: Chata Google bucket where integrator model files are generated
     x-google-marketplace:
       type: STRING
 
-  INTEGRATOR_ID:
+  configmap.INTEGRATOR_ID:
     type: integer
     title: INTEGRATOR ID
     description: Unique ID of the Integrator. Value is an integer
 
-  RELEASE_VERSION:
+  configmap.RELEASE_VERSION:
     type: string
     default: ''
     title: RELEASE VERSION
@@ -362,42 +362,42 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  INDEX_BUCKET:
+  configmap.INDEX_BUCKET:
     type: string
     title: INDEX BUCKET
     description: Chata Google bucket where integrator model buckets data is stored and used for portal installs
     x-google-marketplace:
       type: STRING
 
-  HELM_REPO_URL:
+  configmap.HELM_REPO_URL:
     type: string
     title: HELM REPO URL
     description: Chata Google bucket where helm charts for the services are placed
     x-google-marketplace:
       type: STRING
 
-  POST_DEPLOYMENTS_URL:
+  configmap.POST_DEPLOYMENTS_URL:
     type: string
     title: POST DEPLOYMENTS URL
     description: Chata Google bucket post install scripts for service configurations are placed
     x-google-marketplace:
       type: STRING
 
-  TLS_CERTIFICATE_VALUE:
+  configmap.TLS_CERTIFICATE_VALUE:
     type: string
     title: ENCODED TLS CERTIFICATE
     description: base64 encoded value of TLS certificate for emissary service https. Command to encode a file:base64 -i <input_file>. Example:base64 -i tls_certificate.json.
     x-google-marketplace:
       type: STRING
 
-  TLS_PRIVATE_KEY_VALUE:
+  configmap.TLS_PRIVATE_KEY_VALUE:
     type: string
     title: ENCODED TLS PRIVATE KEY
     description: base64 encoded value of TLS private key for emissary service https. Command to encode a file:base64 -i <input_file>. Example:base64 -i tls_privatekey.json.
     x-google-marketplace:
       type: STRING
 
-  REPLICAS_OVERRIDE_VALUE:
+  configmap.REPLICAS_OVERRIDE_VALUE:
     type: string
     default: ''
     title: REPLICAS OVERRIDE VALUE (required to override replica value in the chart file)
@@ -405,7 +405,7 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  CPU_OVERRIDE_VALUE:
+  configmap.CPU_OVERRIDE_VALUE:
     type: string
     default: ''
     title: CPU OVERRIDE VALUE (required to override CPU value in the chart file)
@@ -413,7 +413,7 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  SPOT_INSTANCES_ENABLED:
+  configmap.SPOT_INSTANCES_ENABLED:
     type: string
     default: ''
     title: SPOT INSTANCES (required if using preemptible nodes. set to true or false)
@@ -422,25 +422,25 @@ properties:
       type: STRING
 
 required:
-- INSTANCE_NAME
-- NAMESPACE
-- STORAGE_CLASS
+- name
+- namespace
+- statefulset.persistence.storageClass
 - reportingSecret
 - SERVICE_ACCOUNT
-- PEM_SECRET
-- JSON_SECRET
-- JWT_SECRET
-- BACKEND_SUBDOMAIN
-- PORTAL_SUBDOMAIN
-- WEBAPP_SUBDOMAIN
-- EXCEL_SUBDOMAIN
-- INTEGRATOR_BUCKET
-- INTEGRATOR_ID
-- ADMIN_EMAIL
-- ADMIN_FIRST_NAME
-- ADMIN_LAST_NAME
-- INDEX_BUCKET
-- HELM_REPO_URL
-- POST_DEPLOYMENTS_URL
-- TLS_CERTIFICATE_VALUE
-- TLS_PRIVATE_KEY_VALUE
+- configmap.PEM_SECRET
+- configmap.JSON_SECRET
+- configmap.JWT_SECRET
+- configmap.BACKEND_SUBDOMAIN
+- configmap.PORTAL_SUBDOMAIN
+- configmap.WEBAPP_SUBDOMAIN
+- configmap.EXCEL_SUBDOMAIN
+- configmap.INTEGRATOR_BUCKET
+- configmap.INTEGRATOR_ID
+- configmap.ADMIN_EMAIL
+- configmap.ADMIN_FIRST_NAME
+- configmap.ADMIN_LAST_NAME
+- configmap.INDEX_BUCKET
+- configmap.HELM_REPO_URL
+- configmap.POST_DEPLOYMENTS_URL
+- configmap.TLS_CERTIFICATE_VALUE
+- configmap.TLS_PRIVATE_KEY_VALUE

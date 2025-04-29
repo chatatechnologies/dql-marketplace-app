@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap-deployer
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+    app.kubernetes.io/component: {{ .Release.Name }}-configmap
+data:
+  dql_namespace: "{{ .Release.Namespace }}"
+  emissary_namespace: "{{ .Release.Namespace }}"
+  portal_subdomain: "{{ .Values.configmap.PORTAL_SUBDOMAIN }}"
+  backend_subdomain: "{{ .Values.configmap.BACKEND_SUBDOMAIN }}"
+  webapp_subdomain: "{{ .Values.configmap.WEBAPP_SUBDOMAIN }}"
+  excel_subdomain: "{{ .Values.configmap.EXCEL_SUBDOMAIN }}"
+  owner_email: "{{ .Values.configmap.ADMIN_EMAIL }}"
+  owner_first_name: "{{ .Values.configmap.ADMIN_FIRST_NAME }}"
+  owner_last_name: "{{ .Values.configmap.ADMIN_LAST_NAME }}"
+  release_version: "{{ .Values.configmap.RELEASE_VERSION }}"
+  index_bucket: "{{ .Values.configmap.INDEX_BUCKET }}"
+  integrator_bucket: "{{ .Values.configmap.INTEGRATOR_BUCKET }}"
+  integrator_id: "{{ .Values.configmap.INTEGRATOR_ID }}"
+  cloud: "{{ .Values.configmap.CLOUD }}"
+  spot_enabled: "{{ .Values.configmap.SPOT_INSTANCES_ENABLED }}"
+  destination_registry: "{{ .Values.statefulset.image.repo }}"
+  helm_repo_url: "{{ .Values.configmap.HELM_REPO_URL }}"
+  post_deployment_files_url: "{{ .Values.configmap.POST_DEPLOYMENTS_URL }}"
+  resource_override_all_replicas: "{{ .Values.configmap.REPLICAS_OVERRIDE_VALUE }}"
+  resource_override_all_cpu_request: "{{ .Values.configmap.CPU_OVERRIDE_VALUE }}"
+  tls_certificate_value: "{{ .Values.configmap.TLS_CERTIFICATE_VALUE }}"
+  tls_private_key_value: "{{ .Values.configmap.TLS_PRIVATE_KEY_VALUE }}"
+  marketplace_image_tag: "{{ .Values.statefulset.image.tag }}"
+  k8s_internal_svc_account: "{{ .Values.SERVICE_ACCOUNT }}"
+  reportingSecret: "{{ .Values.reportingSecret }}"

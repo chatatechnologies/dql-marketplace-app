@@ -1,0 +1,38 @@
+statefulset:
+  image:
+    full: null
+    repo: null
+    tag: null
+
+  persistence:
+    storageClass: null
+
+SERVICE_ACCOUNT: null
+reportingSecret: null
+
+configmap:
+  PORTAL_SUBDOMAIN: null
+  BACKEND_SUBDOMAIN: null
+  WEBAPP_SUBDOMAIN: null
+  EXCEL_SUBDOMAIN: null
+  IMAGE_REPO: null
+  ADMIN_EMAIL: null
+  ADMIN_FIRST_NAME: null
+  ADMIN_LAST_NAME: null
+  INTEGRATOR_BUCKET: null
+  INTEGRATOR_ID: null
+  CLOUD: "gcp"
+  RELEASE_VERSION: null
+  INDEX_BUCKET: null
+  HELM_REPO_URL: null
+  POST_DEPLOYMENTS_URL: null
+  TLS_CERTIFICATE_VALUE: null
+  TLS_PRIVATE_KEY_VALUE: null
+  REPLICAS_OVERRIDE_VALUE: null
+  CPU_OVERRIDE_VALUE: null
+  SPOT_INSTANCES_ENABLED: "false"
+
+secrets:
+  PEM_SECRET: null
+  JSON_SECRET: null
+  JWT_SECRET: null

@@ -4,119 +4,120 @@ properties:
     default: $REGISTRY/tester:$TAG
     x-google-property:
       type: IMAGE
-  PEM_SECRET:
+
+  secrets.PEM_SECRET:
     type: string
     default: test
     x-google-marketplace:
       type: STRING
 
-  JSON_SECRET:
+  secrets.JSON_SECRET:
     type: string
     default: test
     x-google-marketplace:
       type: STRING
 
-  JWT_SECRET:
+  secrets.JWT_SECRET:
     type: string
     default: test
     x-google-marketplace:
       type: STRING
       
-  BACKEND_SUBDOMAIN:
+  configmap.BACKEND_SUBDOMAIN:
     type: string
     default: 'api-marketplace.chata.io'
     x-google-marketplace:
       type: STRING
 
-  PORTAL_SUBDOMAIN:
+  configmap.PORTAL_SUBDOMAIN:
     type: string
     default: 'portal-marketplace.chata.io'
     x-google-marketplace:
       type: STRING
 
-  WEBAPP_SUBDOMAIN:
+  configmap.WEBAPP_SUBDOMAIN:
     type: string
     default: 'webapp-marketplace.chata.io'
     x-google-marketplace:
       type: STRING
 
-  EXCEL_SUBDOMAIN:
+  configmap.EXCEL_SUBDOMAIN:
     type: string
     default: 'excel-marketplace.chata.io'
     x-google-marketplace:
       type: STRING
 
-  ADMIN_EMAIL:
+  configmap.ADMIN_EMAIL:
     type: string
     default: 'developer@chata.ai'
     x-google-marketplace:
       type: STRING
 
-  ADMIN_FIRST_NAME:
+  configmap.ADMIN_FIRST_NAME:
     type: string
     default: developer
     x-google-marketplace:
       type: STRING
 
-  ADMIN_LAST_NAME:
+  configmap.ADMIN_LAST_NAME:
     type: string
     default: developer
     x-google-marketplace:
       type: STRING
 
-  INTEGRATOR_BUCKET:
+  configmap.INTEGRATOR_BUCKET:
     type: string
     default: 'gs://atctest_chata-engineering_65ea66aabd53b76a6abffe06'
     x-google-marketplace:
       type: STRING
 
-  INTEGRATOR_ID:
+  configmap.INTEGRATOR_ID:
     type: integer
     default: 3010
 
-  INDEX_BUCKET:
+  configmap.INDEX_BUCKET:
     type: string
     default: 'gs://chata-dql-index-3010-test'
     x-google-marketplace:
       type: STRING
 
-  SPOT_INSTANCES_ENABLED:
+  configmap.SPOT_INSTANCES_ENABLED:
     type: string
     default: 'true'
     x-google-marketplace:
       type: STRING
 
-  HELM_REPO_URL:
+  configmap.HELM_REPO_URL:
     type: string
     default: 'gs://chata-deployable-helm-repo'
     x-google-marketplace:
       type: STRING
 
-  POST_DEPLOYMENTS_URL:
+  configmap.POST_DEPLOYMENTS_URL:
     type: string
     default: 'gs://chata-deployable-inference'
     x-google-marketplace:
       type: STRING
 
-  REPLICAS_OVERRIDE_VALUE:
+  configmap.REPLICAS_OVERRIDE_VALUE:
     type: string
     default: '1'
     x-google-marketplace:
       type: STRING
 
-  CPU_OVERRIDE_VALUE:
+  configmap.CPU_OVERRIDE_VALUE:
     type: string
     default: '0.5'
     x-google-marketplace:
       type: STRING
 
-  TLS_CERTIFICATE_VALUE:
+  configmap.TLS_CERTIFICATE_VALUE:
     type: string
     default: test
     x-google-marketplace:
       type: STRING
 
-  TLS_PRIVATE_KEY_VALUE:
+  configmap.TLS_PRIVATE_KEY_VALUE:
     type: string
     default: test
     x-google-marketplace:

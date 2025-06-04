@@ -1,6 +1,6 @@
 apiVersion: v2
 name: dql-marketplace
-description: A Helm chart to deploy DQL application from Azure Marketplace Kubernetes
-home: https://github.com/chatatechnologies/chart-dql-marketplace
+description: A Helm chart to deploy DQL application from GCP Marketplace Kubernetes
+home: https://github.com/chatatechnologies/chart-dql-marketplace/gcp
 version: 1.0.0
 appVersion: "1.0.0"

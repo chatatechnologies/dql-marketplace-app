@@ -101,7 +101,11 @@ x-google-marketplace:
       properties:
         IMAGE_TAG:
           type: TAG
-    sethybrid-service.image.tag:
+    sethybrid-mcp-service.image.tag:
+      properties:
+        IMAGE_TAG:
+          type: TAG
+    mutable-cp-service.image.tag:
       properties:
         IMAGE_TAG:
           type: TAG

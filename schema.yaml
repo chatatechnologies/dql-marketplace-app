@@ -3,7 +3,7 @@ x-google-marketplace:
 
   applicationApiVersion: v1beta1
 
-  publishedVersion: '1.1.1-gmp1'
+  publishedVersion: '1.1.1-gcp.alpha1'
   publishedVersionMetadata:
     releaseNote: >-
       Building deploying using helm from envsubst
@@ -13,113 +13,117 @@ x-google-marketplace:
       properties:
         statefulset.image.full:
           type: FULL
-        statefulset.image.tag:
+        statefulset:
           type: TAG
         statefulset.image.repo:
           type: REPO_WITH_REGISTRY
-    ubbagent.image.tag:
+    ubbagent:
       properties:
-        IMAGE_TAG:
+        ubbagent.image.tag:
           type: TAG
-    nats.image.tag:
+    nats:
       properties:
-        IMAGE_TAG:
+        nats.image.tag:
           type: TAG
-    postgresql.image.tag:
+    postgresql:
       properties:
-        IMAGE_TAG:
+        postgresql.image.tag:
           type: TAG
-    caas-uniform-message.image.tag:
+    caas-uniform-message:
       properties:
-        IMAGE_TAG:
+        caas-uniform-message.image.tag:
           type: TAG
-    autoql-redisearch-service.image.tag:
+    autoql-redisearch-service:
       properties:
-        IMAGE_TAG:
+        autoql-redisearch-service.image.tag:
           type: TAG
-    autoql-integration-service.image.tag:
+    autoql-integration-service:
       properties:
-        IMAGE_TAG:
+        autoql-integration-service.image.tag:
           type: TAG
-    autoql-query-controller-service.image.tag:
+    autoql-query-controller-service:
       properties:
-        IMAGE_TAG:
+        autoql-query-controller-service.image.tag:
           type: TAG
-    autoql-user-management-service.image.tag:
+    autoql-user-management-service:
       properties:
-        IMAGE_TAG:
+        autoql-user-management-service.image.tag:
           type: TAG
-    autoql-notifications-service.image.tag:
+    autoql-notifications-service:
       properties:
-        IMAGE_TAG:
+        autoql-notifications-service.image.tag:
           type: TAG
-    autoql-credential-service.image.tag:
+    autoql-credential-service:
       properties:
-        IMAGE_TAG:
+        autoql-credential-service.image.tag:
           type: TAG
-    autoql-credential-proxy-service.image.tag:
+    autoql-credential-proxy-service:
       properties:
-        IMAGE_TAG:
+        autoql-credential-proxy-service.image.tag:
           type: TAG
-    autoql-egress-service.image.tag:
+    autoql-egress-service:
       properties:
-        IMAGE_TAG:
+        autoql-egress-service.image.tag:
           type: TAG
-    authority-service.image.tag:
+    authority-service:
       properties:
-        IMAGE_TAG:
+        authority-service.image.tag:
           type: TAG
-    autoql-excel-plugin.image.tag:
+    autoql-excel-plugin:
       properties:
-        IMAGE_TAG:
+        autoql-excel-plugin.image.tag:
           type: TAG
-    autoql-logic-engine-service.image.tag:
+    autoql-logic-engine-service:
       properties:
-        IMAGE_TAG:
+        autoql-logic-engine-service.image.tag:
           type: TAG
-    autoql-webapp-frontend.image.tag:
+    autoql-webapp-frontend:
       properties:
-        IMAGE_TAG:
+        autoql-webapp-frontend.image.tag:
           type: TAG
-    autoql-widget-support-service.image.tag:
+    autoql-widget-support-service:
       properties:
-        IMAGE_TAG:
+        autoql-widget-support-service.image.tag:
           type: TAG
-    sql-go-antlr.image.tag:
+    sql-go-antlr:
       properties:
-        IMAGE_TAG:
+        sql-go-antlr.image.tag:
           type: TAG
-    caas-integration-portal.image.tag:
+    caas-integration-portal:
       properties:
-        IMAGE_TAG:
+        caas-integration-portal.image.tag:
           type: TAG
-    autoql-redisearch-service-teams-bot.image.tag:
+    autoql-redisearch-service-teams-bot:
       properties:
-        IMAGE_TAG:
+        autoql-redisearch-service-teams-bot.image.tag:
           type: TAG
-    autoql-recommendation-service.image.tag:
+    autoql-recommendation-service:
       properties:
-        IMAGE_TAG:
+        autoql-recommendation-service.image.tag:
           type: TAG
-    sethybrid-mcp-service.image.tag:
+    sethybrid-mcp-service:
       properties:
-        IMAGE_TAG:
+        sethybrid-mcp-service.image.tag:
           type: TAG
-    mutable-cp-service.image.tag:
+    mutable-cp-service:
       properties:
-        IMAGE_TAG:
+        mutable-cp-service.image.tag:
           type: TAG
-    autoql-usage-service.image.tag:
+    autoql-usage-service:
       properties:
-        IMAGE_TAG:
+        autoql-usage-service.image.tag:
           type: TAG
-    emissary-ingress.image.tag:
+    emissary-ingress:
       properties:
-        IMAGE_TAG:
+        emissary-ingress.image.tag:
           type: TAG
-    ambassador-agent.image.tag:
+    ambassador-agent:
       properties:
-        IMAGE_TAG:
+        ambassador-agent.image.tag:
+          type: TAG
+    autoql-model-builder-service:
+      properties:
+        autoql-model-builder-service.image.tag:
           type: TAG
 
 properties:
@@ -373,13 +377,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  configmap.HELM_REPO_URL:
-    type: string
-    title: HELM REPO URL
-    description: Chata Google bucket where helm charts for the services are placed
-    x-google-marketplace:
-      type: STRING
-
   configmap.POST_DEPLOYMENTS_URL:
     type: string
     title: POST DEPLOYMENTS URL
@@ -444,7 +441,6 @@ required:
 - configmap.ADMIN_FIRST_NAME
 - configmap.ADMIN_LAST_NAME
 - configmap.INDEX_BUCKET
-- configmap.HELM_REPO_URL
 - configmap.POST_DEPLOYMENTS_URL
 - configmap.TLS_CERTIFICATE_VALUE
 - configmap.TLS_PRIVATE_KEY_VALUE

@@ -23,7 +23,6 @@ data:
   cloud: "{{ .Values.configmap.CLOUD }}"
   spot_enabled: "{{ .Values.configmap.SPOT_INSTANCES_ENABLED }}"
   destination_registry: "{{ .Values.statefulset.image.repo }}"
-  helm_repo_url: "{{ .Values.configmap.HELM_REPO_URL }}"
   post_deployment_files_url: "{{ .Values.configmap.POST_DEPLOYMENTS_URL }}"
   resource_override_all_replicas: "{{ .Values.configmap.REPLICAS_OVERRIDE_VALUE }}"
   resource_override_all_cpu_request: "{{ .Values.configmap.CPU_OVERRIDE_VALUE }}"

@@ -12,7 +12,7 @@ metadata:
 spec:
   descriptor:
     type: Chata DQL instance
-    version: '1.1.1-gmp1'
+    version: '1.1.1-gcp.alpha1'
     description: >-
       Deployable AutoQL solution by Chata is a platform to accelerate data-driven decision-making and eliminate repetitive reporting tasks.
       With AutoQL empower your non-technical users to access real-time data with ease, increase productivity and reduce the demand on the technical team – all 

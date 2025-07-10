@@ -24,7 +24,6 @@ configmap:
   CLOUD: "gcp"
   RELEASE_VERSION: null
   INDEX_BUCKET: null
-  HELM_REPO_URL: null
   POST_DEPLOYMENTS_URL: null
   TLS_CERTIFICATE_VALUE: null
   TLS_PRIVATE_KEY_VALUE: null

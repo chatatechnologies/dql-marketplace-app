@@ -87,12 +87,6 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  configmap.HELM_REPO_URL:
-    type: string
-    default: 'gs://chata-deployable-helm-repo'
-    x-google-marketplace:
-      type: STRING
-
   configmap.POST_DEPLOYMENTS_URL:
     type: string
     default: 'gs://chata-deployable-inference'

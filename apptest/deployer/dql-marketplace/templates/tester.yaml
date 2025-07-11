@@ -10,7 +10,7 @@ spec:
   serviceAccountName: {{ .Values.SERVICE_ACCOUNT }}
   containers:
   - name: tester
-    image: "${testerImage}"
+    image: "{{ .Values.testerImage }}"
     imagePullPolicy: Always
     env:
     - name: INSTANCE_NAME

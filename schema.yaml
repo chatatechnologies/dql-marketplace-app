@@ -13,7 +13,7 @@ x-google-marketplace:
       properties:
         statefulset.image.full:
           type: FULL
-        statefulset:
+        statefulset.image.tag:
           type: TAG
         statefulset.image.repo:
           type: REPO_WITH_REGISTRY
@@ -428,9 +428,9 @@ required:
 - statefulset.persistence.storageClass
 - reportingSecret
 - SERVICE_ACCOUNT
-- configmap.PEM_SECRET
-- configmap.JSON_SECRET
-- configmap.JWT_SECRET
+- secrets.PEM_SECRET
+- secrets.JSON_SECRET
+- secrets.JWT_SECRET
 - configmap.BACKEND_SUBDOMAIN
 - configmap.PORTAL_SUBDOMAIN
 - configmap.WEBAPP_SUBDOMAIN

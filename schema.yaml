@@ -125,6 +125,13 @@ x-google-marketplace:
       properties:
         autoql-model-builder-service.image.tag:
           type: TAG
+    # Required by GCP Marketplace verification service to copy this image to the verification repository
+    tester:
+      properties:
+        tester.image.repo:
+          type: REPO_WITH_REGISTRY
+        tester.image.tag:
+          type: TAG
 
 properties:
   name:

@@ -1,1 +1,4 @@
-testerImage: null
+tester:
+  image:
+    repo: null
+    tag: null

@@ -11,13 +11,13 @@ x-google-marketplace:
 properties:
   secrets.PEM_SECRET:
     type: string
-    default: test==
+    default: test
     x-google-marketplace:
       type: STRING
 
   secrets.JSON_SECRET:
     type: string
-    default: test==
+    default: test
     x-google-marketplace:
       type: STRING
 
@@ -111,7 +111,7 @@ properties:
 
   configmap.TLS_CERTIFICATE_VALUE:
     type: string
-    default: test==
+    default: test
     x-google-marketplace:
       type: STRING
 

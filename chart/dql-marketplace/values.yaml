@@ -29,7 +29,7 @@ configmap:
   TLS_PRIVATE_KEY_VALUE: null
   REPLICAS_OVERRIDE_VALUE: null
   CPU_OVERRIDE_VALUE: null
-  SPOT_INSTANCES_ENABLED: "false"
+  SPOT_INSTANCES_ENABLED: null
 
 secrets:
   PEM_SECRET: null

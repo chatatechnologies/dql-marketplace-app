@@ -423,7 +423,7 @@ properties:
 
   configmap.SPOT_INSTANCES_ENABLED:
     type: string
-    default: ''
+    default: 'false'
     title: SPOT INSTANCES (required if using preemptible nodes. set to true or false)
     description: Install the deployments and statefulsets on SPOT/Preemptible nodes. Set to true or false
     x-google-marketplace:

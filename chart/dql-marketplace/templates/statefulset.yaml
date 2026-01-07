@@ -18,7 +18,7 @@ spec:
       serviceAccountName: {{ .Values.SERVICE_ACCOUNT }}
       containers:
       - name: deployable-vm-image
-        image: {{ .Values.statefulset.image.full }}
+        image: "{{ .Values.statefulset.image.repo }}:{{ .Values.statefulset.image.tag }}"
         imagePullPolicy: Always
         envFrom:
           - configMapRef:

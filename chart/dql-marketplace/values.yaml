@@ -6,6 +6,7 @@ statefulset:
 
   persistence:
     storageClass: null
+    size: '10Gi'
 
 SERVICE_ACCOUNT: null
 reportingSecret: null

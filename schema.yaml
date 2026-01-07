@@ -11,12 +11,10 @@ x-google-marketplace:
   images: 
     '':
       properties:
-        statefulset.image.full:
-          type: FULL
-        statefulset.image.tag:
-          type: TAG
         statefulset.image.repo:
           type: REPO_WITH_REGISTRY
+        statefulset.image.tag:
+          type: TAG
     ubbagent:
       properties:
         ubbagent.image.tag:
@@ -124,6 +122,14 @@ x-google-marketplace:
     autoql-model-builder-service:
       properties:
         autoql-model-builder-service.image.tag:
+          type: TAG
+    autoql-storage-service:
+      properties:
+        autoql-storage-service.image.tag:
+          type: TAG
+    autoql-reporting-service:
+      properties:
+        autoql-reporting-service.image.tag:
           type: TAG
     # Required by GCP Marketplace verification service to copy this image to the verification repository
     tester:

@@ -171,11 +171,11 @@ export DEPLOYER_IMAGE="https://marketplace.gcr.io/chataai-public/autoql/deployer
 **NOTE: `PEM_SECRET`, `JSON_SECRET` and `JWT_SECRET` will be present in the install guide folder provide by Chata.  `TLS_CERTIFICATE_VALUE`, `TLS_PRIVATE_KEY_VALUE` should be of the Customer.**
 
     ```shell
-    export RELEASE_VERSION="$(cat integrator.conf | base64)"
-    export INDEX_BUCKET="$(cat integrator.conf | base64)"
-    export INTEGRATOR_BUCKET="$(cat integrator.conf | base64)"
-    export INTEGRATOR_ID="$(cat integrator.conf | base64)"
-    export POST_DEPLOYMENTS_URL="$(cat integrator.conf | base64)"
+    export RELEASE_VERSION=$(sed -n "s/^export release_version='\(.*\)'/\1/p" integrator.conf)
+    export INDEX_BUCKET=$(sed -n "s/^export index_bucket='\(.*\)'/\1/p" integrator.conf)
+    export INTEGRATOR_BUCKET=$(sed -n "s/^export integrator_bucket='\(.*\)'/\1/p" integrator.conf)
+    export INTEGRATOR_ID=$(sed -n "s/^export integrator_id='\(.*\)'/\1/p" integrator.conf)
+    export POST_DEPLOYMENTS_URL=$(sed -n "s/^export post_deployment_files_url='\(.*\)'/\1/p" registry.conf)
     ```
 
     ```shell
@@ -295,34 +295,21 @@ SERVICE_IP=$(kubectl get svc --namespace "$NAMESPACE" emissary-ingress -o "go-te
 ```
 
 If you want to test the if IP is working run the following command:
+
 ```shell
 echo "https://$SERVICE_IP/httpbin/"
 ```
 
 At this point, to actually access the Application UI, you need to set up the `Subdomains`  and then get the details of the URL for setting up the login password for `ADMIN_EMAIL` defined.
 
+After setting up the `Subdomains`, use the following command to get the URL for setting up the password:
 
+```shell
+kubectl get configmap configmap-login-details --namespace "$NAMESPACE" -o jsonpath='{.data.login_url}'; echo
+```
 
+Once the URL is obtained please set the password for `ADMIN_EMAIL` and then use URL of `$PORTAL_SUBDOMAIN` to login.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##############-------#################
 # Uninstalling the app
 
 1.  In the GCP Console, open

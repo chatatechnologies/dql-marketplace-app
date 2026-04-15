@@ -79,21 +79,15 @@ properties:
     type: integer
     default: 3010
 
-  configmap.INDEX_BUCKET:
+  configmap.ENVIRONMENT:
     type: string
-    default: 'gs://chata-dql-index-3010-test'
+    default: 'staging'
     x-google-marketplace:
       type: STRING
 
   configmap.SPOT_INSTANCES_ENABLED:
     type: string
     default: 'true'
-    x-google-marketplace:
-      type: STRING
-
-  configmap.POST_DEPLOYMENTS_URL:
-    type: string
-    default: 'gs://chata-deployable-inference'
     x-google-marketplace:
       type: STRING
 

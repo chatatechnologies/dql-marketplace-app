@@ -152,7 +152,7 @@ export DEPLOYER_IMAGE="https://marketplace.gcr.io/chataai-public/autoql/deployer
 ```
 
 #### Following are the environment variables provided by Chata
-- RELEASE_VERSION, INDEX_BUCKET, INTEGRATOR_BUCKET, INTEGRATOR_ID, POST_DEPLOYMENTS_URL
+- RELEASE_VERSION, INTEGRATOR_BUCKET, INTEGRATOR_ID
 - PEM_SECRET, JSON_SECRET, JWT_SECRET should be generated as base64 values using  respective files.
 
 #### Following are the environment variables needed to be entered from Customer side
@@ -172,10 +172,8 @@ export DEPLOYER_IMAGE="https://marketplace.gcr.io/chataai-public/autoql/deployer
 
     ```shell
     export RELEASE_VERSION=$(sed -n "s/^export release_version='\(.*\)'/\1/p" integrator.conf)
-    export INDEX_BUCKET=$(sed -n "s/^export index_bucket='\(.*\)'/\1/p" integrator.conf)
     export INTEGRATOR_BUCKET=$(sed -n "s/^export integrator_bucket='\(.*\)'/\1/p" integrator.conf)
     export INTEGRATOR_ID=$(sed -n "s/^export integrator_id='\(.*\)'/\1/p" integrator.conf)
-    export POST_DEPLOYMENTS_URL=$(sed -n "s/^export post_deployment_files_url='\(.*\)'/\1/p" registry.conf)
     ```
 
     ```shell
@@ -236,10 +234,8 @@ save the expanded manifest file for future updates to the application.
       --namespace "$NAMESPACE" \
       --set statefulset.image.repo="$DEPLOYABLE_VM_IMAGE" \
       --set statefulset.image.tag="$TAG" \
-
       --set statefulset.persistence.storageClass="$STORAGE_CLASS" \
       --set statefulset.persistence.size="$PERSISTENT_DISK_SIZE" \
-
       --set statefulset.configmap.PORTAL_SUBDOMAIN="$PORTAL_SUBDOMAIN" \
       --set statefulset.configmap.BACKEND_SUBDOMAIN="$BACKEND_SUBDOMAIN" \
       --set statefulset.configmap.WEBAPP_SUBDOMAIN="$WEBAPP_SUBDOMAIN" \
@@ -252,16 +248,12 @@ save the expanded manifest file for future updates to the application.
       --set statefulset.configmap.INTEGRATOR_BUCKET="$INTEGRATOR_BUCKET" \
       --set statefulset.configmap.INTEGRATOR_ID="$INTEGRATOR_ID" \
       --set statefulset.configmap.RELEASE_VERSION="$RELEASE_VERSION" \
-      --set statefulset.configmap.INDEX_BUCKET="$INDEX_BUCKET" \
-      --set statefulset.configmap.POST_DEPLOYMENTS_URL="$POST_DEPLOYMENTS_URL" \
       --set statefulset.configmap.SPOT_INSTANCES_ENABLED="$SPOT_INSTANCES_ENABLED" \
       --set statefulset.configmap.REPLICAS_OVERRIDE_VALUE="$REPLICAS_OVERRIDE_VALUE" \
       --set statefulset.configmap.CPU_OVERRIDE_VALUE="$CPU_OVERRIDE_VALUE" \
-
       --set statefulset.secrets.PEM_SECRET="$PEM_SECRET" \
       --set statefulset.secrets.JSON_SECRET="$JSON_SECRET" \
       --set statefulset.secrets.JWT_SECRET="$JWT_SECRET" \
-
       --set statefulset.serviceAccount="$SERVICE_ACCOUNT" \
       > "${INSTANCE_NAME}_manifest.yaml"
     ```
@@ -291,13 +283,13 @@ To view your app, open the URL in your browser.
 If the Application is exposed externally, get the external IP of your Loadbalancer using the following command:
 
 ```shell
-SERVICE_IP=$(kubectl get svc --namespace "$NAMESPACE" emissary-ingress -o "go-template={{range .status.loadBalancer.ingress}}{{or .ip .hostname}}{{end}}")
+SERVICE_IP=$(kubectl get get gateway/deployable-gateway --namespace "$NAMESPACE" -o jsonpath="{.status.addresses[0].value}")
 ```
 
 If you want to test the if IP is working run the following command:
 
 ```shell
-echo "https://$SERVICE_IP/httpbin/"
+echo "https://$SERVICE_IP/"
 ```
 
 At this point, to actually access the Application UI, you need to set up the `Subdomains`  and then get the details of the URL for setting up the login password for `ADMIN_EMAIL` defined.

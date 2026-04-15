@@ -1,4 +1,4 @@
-ARG MARKETPLACE_TOOLS_TAG
+ARG MARKETPLACE_TOOLS_TAG=0.12.14
 FROM marketplace.gcr.io/google/c2d-debian11 AS build
 
 RUN apt-get update \
@@ -33,5 +33,5 @@ COPY --from=build /tmp/test/dql-marketplace.tar.gz /data-test/chart/
 COPY --from=build /tmp/apptest/schema.yaml /data-test/
 COPY --from=build /tmp/schema.yaml /data/
 
-ENV WAIT_FOR_READY_TIMEOUT 6000
-ENV TESTER_TIMEOUT 2700
+ENV WAIT_FOR_READY_TIMEOUT=6000
+ENV TESTER_TIMEOUT=2700

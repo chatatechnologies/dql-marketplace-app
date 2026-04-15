@@ -12,6 +12,7 @@ SERVICE_ACCOUNT: null
 reportingSecret: null
 
 configmap:
+  ENVIRONMENT: null
   PORTAL_SUBDOMAIN: null
   BACKEND_SUBDOMAIN: null
   WEBAPP_SUBDOMAIN: null

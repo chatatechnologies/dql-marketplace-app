@@ -103,13 +103,13 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  configmap.TLS_CERTIFICATE_VALUE:
+  secrets.TLS_CERTIFICATE_VALUE:
     type: string
     default: test
     x-google-marketplace:
       type: STRING
 
-  configmap.TLS_PRIVATE_KEY_VALUE:
+  secrets.TLS_PRIVATE_KEY_VALUE:
     type: string
     default: test
     x-google-marketplace:

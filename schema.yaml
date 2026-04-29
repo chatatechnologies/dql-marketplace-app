@@ -105,7 +105,7 @@ x-google-marketplace:
           type: TAG
     autoql-value-label-service:
       properties:
-        autoql-value-label-service.tag:
+        autoql-value-label-service.image.tag:
           type: TAG
     autoql-usage-service:
       properties:
@@ -391,28 +391,14 @@ properties:
     x-google-marketplace:
       type: STRING
 
-  # configmap.INDEX_BUCKET:
-  #   type: string
-  #   title: INDEX BUCKET
-  #   description: Chata Google bucket where integrator model buckets data is stored and used for portal installs
-  #   x-google-marketplace:
-  #     type: STRING
-
-  # configmap.POST_DEPLOYMENTS_URL:
-  #   type: string
-  #   title: POST DEPLOYMENTS URL
-  #   description: Chata Google bucket post install scripts for service configurations are placed
-  #   x-google-marketplace:
-  #     type: STRING
-
-  configmap.TLS_CERTIFICATE_VALUE:
+  secrets.TLS_CERTIFICATE_VALUE:
     type: string
     title: ENCODED TLS CERTIFICATE
     description: base64 encoded value of TLS certificate for Gateway https. Command to encode a file:base64 -i <input_file>. Example:base64 -i tls_certificate.json.
     x-google-marketplace:
       type: STRING
 
-  configmap.TLS_PRIVATE_KEY_VALUE:
+  secrets.TLS_PRIVATE_KEY_VALUE:
     type: string
     title: ENCODED TLS PRIVATE KEY
     description: base64 encoded value of TLS private key for Gateway https. Command to encode a file:base64 -i <input_file>. Example:base64 -i tls_privatekey.json.
@@ -437,9 +423,12 @@ properties:
 
   configmap.SPOT_INSTANCES_ENABLED:
     type: string
-    default: 'false'
-    title: SPOT INSTANCES (required if using preemptible nodes. set to true or false)
-    description: Install the deployments and statefulsets on SPOT/Preemptible nodes. Set to true or false
+    title: SPOT INSTANCES (required if using preemptible nodes)
+    description: Install the deployments and statefulsets on SPOT/Preemptible nodes (true or false)
+    enum:
+      - true
+      - false
+    default: false
     x-google-marketplace:
       type: STRING
 
@@ -462,7 +451,5 @@ required:
 - configmap.ADMIN_EMAIL
 - configmap.ADMIN_FIRST_NAME
 - configmap.ADMIN_LAST_NAME
-# - configmap.INDEX_BUCKET
-# - configmap.POST_DEPLOYMENTS_URL
-- configmap.TLS_CERTIFICATE_VALUE
-- configmap.TLS_PRIVATE_KEY_VALUE
+- secrets.TLS_CERTIFICATE_VALUE
+- secrets.TLS_PRIVATE_KEY_VALUE

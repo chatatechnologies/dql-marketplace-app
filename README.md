@@ -243,17 +243,17 @@ save the expanded manifest file for future updates to the application.
       --set statefulset.configmap.ADMIN_EMAIL="$ADMIN_EMAIL" \
       --set statefulset.configmap.ADMIN_FIRST_NAME="$ADMIN_FIRST_NAME" \
       --set statefulset.configmap.ADMIN_LAST_NAME="$ADMIN_LAST_NAME" \
-      --set statefulset.secrets.TLS_CERTIFICATE_VALUE="$TLS_CERTIFICATE_VALUE" \
-      --set statefulset.secrets.TLS_PRIVATE_KEY_VALUE="$TLS_PRIVATE_KEY_VALUE" \
+      --set secrets.TLS_CERTIFICATE_VALUE="$TLS_CERTIFICATE_VALUE" \
+      --set secrets.TLS_PRIVATE_KEY_VALUE="$TLS_PRIVATE_KEY_VALUE" \
       --set statefulset.configmap.INTEGRATOR_BUCKET="$INTEGRATOR_BUCKET" \
       --set statefulset.configmap.INTEGRATOR_ID="$INTEGRATOR_ID" \
       --set statefulset.configmap.RELEASE_VERSION="$RELEASE_VERSION" \
       --set statefulset.configmap.SPOT_INSTANCES_ENABLED="$SPOT_INSTANCES_ENABLED" \
       --set statefulset.configmap.REPLICAS_OVERRIDE_VALUE="$REPLICAS_OVERRIDE_VALUE" \
       --set statefulset.configmap.CPU_OVERRIDE_VALUE="$CPU_OVERRIDE_VALUE" \
-      --set statefulset.secrets.PEM_SECRET="$PEM_SECRET" \
-      --set statefulset.secrets.JSON_SECRET="$JSON_SECRET" \
-      --set statefulset.secrets.JWT_SECRET="$JWT_SECRET" \
+      --set secrets.PEM_SECRET="$PEM_SECRET" \
+      --set secrets.JSON_SECRET="$JSON_SECRET" \
+      --set secrets.JWT_SECRET="$JWT_SECRET" \
       --set statefulset.serviceAccount="$SERVICE_ACCOUNT" \
       > "${INSTANCE_NAME}_manifest.yaml"
     ```

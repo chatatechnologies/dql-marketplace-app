@@ -123,6 +123,10 @@ x-google-marketplace:
       properties:
         autoql-reporting-service.image.tag:
           type: TAG
+    autoql-composite-alerts-service:
+      properties:
+        autoql-composite-alerts-service.image.tag:
+          type: TAG
     # Required by GCP Marketplace verification service to copy this image to the verification repository
     tester:
       properties:
@@ -282,6 +286,15 @@ properties:
               - networking.k8s.io
               resources:
               - ingressclasses
+              verbs:
+              - '*'
+            - apiGroups:
+              - gateway.networking.k8s.io
+              resources:
+              - gatewayclasses
+              - gateways
+              - httproutes
+              - referencegrants
               verbs:
               - '*'
 

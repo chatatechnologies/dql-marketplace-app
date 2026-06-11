@@ -9,9 +9,24 @@ data:
     - name: gcp
       gcp:
         encodedServiceAccountKey: $AGENT_ENCODED_KEY  
-    # The metrics section defines the metric that will be reported. Metric names should match verbatim the identifiers created during pricing setup.
+    # The metrics section defines the metrics that will be reported. 
+    # The names match the exact backend IDs registered in your active service configuration.
     metrics:
-    - name: API_Call_Pricing
+    - name: db_001
+      type: int
+      endpoints:
+      - name: on_disk
+      - name: servicecontrol
+      aggregation:
+        bufferSeconds: 60
+    - name: mq_001
+      type: int
+      endpoints:
+      - name: on_disk
+      - name: servicecontrol
+      aggregation:
+        bufferSeconds: 60
+    - name: sa_001
       type: int
       endpoints:
       - name: on_disk

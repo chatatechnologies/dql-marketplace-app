@@ -1,4 +1,4 @@
-ARG MARKETPLACE_TOOLS_TAG=0.12.15
+ARG MARKETPLACE_TOOLS_TAG=13.0.0
 
 FROM marketplace.gcr.io/google/c2d-debian11 AS build
 
@@ -33,24 +33,33 @@ ENV PUBLISHED_VERSION=$PUBLISHED_VERSION
 ENV SERVICE_NAME=$SERVICE_NAME
 
 # =========================
+# ENVSUBST ALLOWLIST
+# =========================
+# Only substitute these build-time variables. Anything else with $VAR
+# syntax in the chart (e.g. $AGENT_ENCODED_KEY, $AGENT_CONSUMER_ID) is
+# left as literal text so ubbagent can substitute it at runtime from
+# the reporting secret.
+ENV ENVSUBST_VARS='$REGISTRY $TAG $VERSION $PUBLISHED_VERSION $SERVICE_NAME'
+
+# =========================
 # SUBSTITUTE MAIN CHART (SAFE)
 # =========================
 RUN find /tmp/chart -type f \( -name "*.yaml" -o -name "*.yml" \) -exec \
-    sh -c 'envsubst < "$1" > "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
+    sh -c 'envsubst "$ENVSUBST_VARS" < "$1" > "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
 
 # =========================
 # SUBSTITUTE TEST CHART
 # =========================
 RUN find /tmp/test/chart -type f \( -name "*.yaml" -o -name "*.yml" \) -exec \
-    sh -c 'envsubst < "$1" > "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
+    sh -c 'envsubst "$ENVSUBST_VARS" < "$1" > "$1.tmp" && mv "$1.tmp" "$1"' _ {} \;
 
 # =========================
 # SUBSTITUTE SCHEMA FILES
 # =========================
-RUN envsubst < /tmp/schema.yaml > /tmp/schema.yaml.new && \
+RUN envsubst "$ENVSUBST_VARS" < /tmp/schema.yaml > /tmp/schema.yaml.new && \
     mv /tmp/schema.yaml.new /tmp/schema.yaml
 
-RUN envsubst < /tmp/apptest/schema.yaml > /tmp/apptest/schema.yaml.new && \
+RUN envsubst "$ENVSUBST_VARS" < /tmp/apptest/schema.yaml > /tmp/apptest/schema.yaml.new && \
     mv /tmp/apptest/schema.yaml.new /tmp/apptest/schema.yaml
 
 # =========================
